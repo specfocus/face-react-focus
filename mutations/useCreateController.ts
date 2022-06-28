@@ -13,8 +13,8 @@ import {
   useGetResourceLabel,
   useResourceContext,
   useResourceDefinition
-} from '../core';
-import { useTranslate } from '@specfocus/view-focus.i18n/i18n';
+} from '../resources';
+import { useTranslate } from '@specfocus/view-focus.i18n/translations';
 import { SaveContextValue } from './SaveContext';
 import { useMutationMiddlewares } from './useMutationMiddlewares';
 

@@ -6,7 +6,7 @@ import {
 } from './useCreateController';
 import { CreateContextProvider } from './CreateContextProvider';
 import { Entity }  from '@specfocus/spec-focus/entities/Entity';
-import { ResourceContextProvider } from '../core';
+import { ResourceContextProvider } from '../resources';
 
 /**
  * Call useCreateController and put the value in a CreateContext

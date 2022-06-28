@@ -1,7 +1,7 @@
 import React from 'react';
 import { ReactNode } from 'react';
 import { useListController, ListControllerProps } from './useListController';
-import { ResourceContextProvider } from '../core';
+import { ResourceContextProvider } from '../resources';
 import { Entity }  from '@specfocus/spec-focus/entities/Entity';
 import { ListContextProvider } from './ListContextProvider';
 

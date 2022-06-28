@@ -3,7 +3,7 @@ import { render } from '@testing-library/react';
 import React from 'react';
 
 import { FieldTitle } from './FieldTitle';
-import { TestTranslationProvider } from '@specfocus/view-focus.i18n/i18n';
+import { TestTranslationProvider } from '@specfocus/view-focus.i18n/translations';
 
 describe('FieldTitle', () => {
   it('should return empty span by default', () => {

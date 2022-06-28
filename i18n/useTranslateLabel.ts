@@ -1,6 +1,6 @@
-import { useTranslate } from '@specfocus/view-focus.i18n/i18n/useTranslate';
+import { useTranslate } from '@specfocus/view-focus.i18n/translations/useTranslate';
 import { ReactElement, useCallback } from 'react';
-import { useResourceContext } from '../core';
+import { useResourceContext } from '../resources';
 import { getFieldLabelTranslationArgs, useLabelPrefix } from '../utils';
 
 export const useTranslateLabel = () => {

@@ -4,7 +4,7 @@ import { FormProvider, UseFormProps } from '@specfocus/view-focus.forms/forms';
 import { FormGroupsProvider } from '@specfocus/view-focus.forms/forms/FormGroupsProvider';
 import { ValidateForm } from '@specfocus/view-focus.forms/forms/getSimpleValidationResolver';
 import { ReactNode } from 'react';
-import { useResourceContext } from '../core';
+import { useResourceContext } from '../resources';
 import { OptionalRecordContextProvider, useRecordContext } from '../records';
 import { LabelPrefixContextProvider } from '../utils';
 import { useAugmentedForm } from './useAugmentedForm';

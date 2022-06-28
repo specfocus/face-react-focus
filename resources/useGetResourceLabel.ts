@@ -1,6 +1,6 @@
 import inflection from 'inflection';
 import { useResourceDefinitions } from './useResourceDefinitions';
-import { useTranslate } from '@specfocus/view-focus.i18n/i18n';
+import { useTranslate } from '@specfocus/view-focus.i18n/translations';
 
 /**
  * A hook which returns function to get a translated resource name. It will use the label option of the `Resource` component if it was provided.

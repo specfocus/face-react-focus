@@ -1,6 +1,6 @@
 import { Entity } from '@specfocus/spec-focus/entities/Entity';
 import { ControllerRenderProps } from '@specfocus/view-focus.forms/forms/controller';
-import { Translate } from '@specfocus/view-focus.i18n/i18n/I18nContextProvider';
+import { Translate } from '@specfocus/view-focus.i18n/translations/TranslationContextProvider';
 import { MatchingReferencesError } from './types';
 
 interface GetStatusForInputParams<RecordType extends Entity = Entity> {

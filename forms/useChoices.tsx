@@ -1,5 +1,5 @@
 import { Entity } from '@specfocus/spec-focus/entities/Entity';
-import { useTranslate } from '@specfocus/view-focus.i18n/i18n/useTranslate';
+import { useTranslate } from '@specfocus/view-focus.i18n/translations/useTranslate';
 import get from 'lodash/get';
 import { isValidElement, ReactElement, useCallback } from 'react';
 import { RecordContextProvider } from '../records';

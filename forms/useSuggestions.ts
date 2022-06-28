@@ -1,4 +1,4 @@
-import { useTranslate } from '@specfocus/view-focus.i18n/i18n/useTranslate';
+import { useTranslate } from '@specfocus/view-focus.i18n/translations/useTranslate';
 import set from 'lodash/set';
 import { isValidElement, ReactElement, useCallback } from 'react';
 import { OptionText, useChoices, UseChoicesOptions } from './useChoices';

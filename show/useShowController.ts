@@ -1,8 +1,8 @@
 import { UseQueryOptions } from 'react-query';
 import { useAuthenticated } from '@specfocus/view-focus.auth/providers';
-import { useGetResourceLabel, useResourceContext } from '../core';
+import { useGetResourceLabel, useResourceContext } from '../resources';
 import { useGetOne, UseGetOneHookValue } from '@specfocus/view-focus.data/operations';
-import { useTranslate } from '@specfocus/view-focus.i18n/i18n';
+import { useTranslate } from '@specfocus/view-focus.i18n/translations';
 import { useNotify } from '@specfocus/view-focus.notification/providers';
 import { useRedirect } from '@specfocus/view-focus.navigation/routes';
 import { useParams } from '@specfocus/view-focus.navigation/routes/useParams';

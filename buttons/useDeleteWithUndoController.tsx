@@ -5,7 +5,7 @@ import { RedirectionSideEffect, useRedirect } from '@specfocus/view-focus.naviga
 import { useNotify } from '@specfocus/view-focus.notification/providers';
 import { ReactEventHandler, useCallback } from 'react';
 import { UseMutationOptions } from 'react-query';
-import { useResourceContext } from '../core';
+import { useResourceContext } from '../resources';
 import { useUnselect } from '../lists';
 
 /**

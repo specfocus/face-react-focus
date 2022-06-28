@@ -5,7 +5,7 @@ import { useSafeSetState } from '@specfocus/view-focus.states/states/useSafeSetS
 import get from 'lodash/get';
 import isEqual from 'lodash/isEqual';
 import { useCallback, useEffect, useRef } from 'react';
-import { useResourceContext } from '../core';
+import { useResourceContext } from '../resources';
 import { removeEmpty } from '../utils';
 import { ListControllerResult } from './useListController';
 import usePaginationState from './usePaginationState';

@@ -1,7 +1,7 @@
-import { TranslatableContextValue } from '@specfocus/view-focus.i18n/i18n/TranslatableContext';
-import { useLocaleState } from '@specfocus/view-focus.i18n/i18n/useLocaleState';
+import { TranslatableContextValue } from '@specfocus/view-focus.i18n/translations/TranslatableContext';
+import { useLocaleState } from '@specfocus/view-focus.i18n/translations/useLocaleState';
 import { useMemo, useState } from 'react';
-import { useResourceContext } from '../core';
+import { useResourceContext } from '../resources';
 import { useTranslateLabel } from './useTranslateLabel';
 
 /**

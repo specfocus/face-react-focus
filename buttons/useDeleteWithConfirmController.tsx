@@ -11,7 +11,7 @@ import {
   useState
 } from 'react';
 import { UseMutationOptions } from 'react-query';
-import { useResourceContext } from '../core';
+import { useResourceContext } from '../resources';
 import { useUnselect } from '../lists';
 
 /**

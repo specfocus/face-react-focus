@@ -6,7 +6,7 @@ import {
   defaultDataProvider
 } from '@specfocus/view-focus.data/providers';
 import { DataProvider, LegacyDataProvider } from '@specfocus/view-focus.data/providers/DataProvider';
-import { I18nContextProvider, I18nProvider } from '@specfocus/view-focus.i18n/i18n/I18nContextProvider';
+import { TranslationContextProvider, I18nProvider } from '@specfocus/view-focus.i18n/translations/TranslationContextProvider';
 import { AdminRouter } from '@specfocus/view-focus.navigation/routes';
 import { NotificationContextProvider } from '@specfocus/view-focus.notification/providers';
 import { memoryStore, Store, StoreContextProvider } from '@specfocus/view-focus.states/states';
@@ -75,13 +75,13 @@ React-admin requires a valid dataProvider function to work.`);
         <StoreContextProvider value={store}>
           <QueryClientProvider client={finalQueryClient}>
             <AdminRouter history={history} basename={basename}>
-              <I18nContextProvider value={i18nProvider}>
+              <TranslationContextProvider value={i18nProvider}>
                 <NotificationContextProvider>
                   <ResourceDefinitionContextProvider>
                     {children}
                   </ResourceDefinitionContextProvider>
                 </NotificationContextProvider>
-              </I18nContextProvider>
+              </TranslationContextProvider>
             </AdminRouter>
           </QueryClientProvider>
         </StoreContextProvider>

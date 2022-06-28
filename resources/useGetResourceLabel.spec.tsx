@@ -2,7 +2,7 @@ import React from 'react';
 import { screen, render } from '@testing-library/react';
 import { useGetResourceLabel } from './useGetResourceLabel';
 
-import { TestTranslationProvider } from '@specfocus/view-focus.i18n/i18n';
+import { TestTranslationProvider } from '@specfocus/view-focus.i18n/translations';
 
 describe('useGetResourceLabel', () => {
   test.each([

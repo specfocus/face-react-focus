@@ -2,7 +2,7 @@ import React from 'react';
 import expect from 'expect';
 import { render, screen } from '@testing-library/react';
 import { useChoices } from './useChoices';
-import { TestTranslationProvider } from '@specfocus/view-focus.i18n/i18n/TestTranslationProvider';
+import { TestTranslationProvider } from '@specfocus/view-focus.i18n/translations/TestTranslationProvider';
 import { useRecordContext } from '../controller';
 
 describe('useChoices hook', () => {

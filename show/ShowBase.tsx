@@ -4,7 +4,7 @@ import { ReactElement } from 'react';
 import { Entity }  from '@specfocus/spec-focus/entities/Entity';
 import { useShowController, ShowControllerProps } from './useShowController';
 import { ShowContextProvider } from './ShowContextProvider';
-import { ResourceContextProvider } from '../core';
+import { ResourceContextProvider } from '../resources';
 
 /**
  * Call useShowController and put the value in a ShowContext

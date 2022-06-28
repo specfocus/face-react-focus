@@ -14,8 +14,8 @@ import { useParams } from '@specfocus/view-focus.navigation/routes/useParams';
 import { useNotify } from '@specfocus/view-focus.notification/providers';
 import { useCallback } from 'react';
 import { UseMutationOptions, UseQueryOptions } from 'react-query';
-import { useGetResourceLabel, useResourceContext } from '../core';
-import { useTranslate } from '@specfocus/view-focus.i18n/i18n';
+import { useGetResourceLabel, useResourceContext } from '../resources';
+import { useTranslate } from '@specfocus/view-focus.i18n/translations';
 import { SaveContextValue } from './SaveContext';
 import { useMutationMiddlewares } from './useMutationMiddlewares';
 
