@@ -18,7 +18,7 @@ export type ChildrenFunction = () => ComponentType[];
 
 const DefaultLayout = ({ children }: CoreLayoutProps) => <>{children}</>;
 
-export interface BaseRootUIProps {
+export interface BaseRootLayoutProps {
   catchAll?: CatchAllComponent;
   children?: ResourceChildren;
   dashboard?: DashboardComponent;
@@ -35,7 +35,7 @@ export interface BaseRootUIProps {
   title?: TitleComponent;
 }
 
-export const BaseRootUI = (props: BaseRootUIProps) => {
+export const BaseRootLayout = (props: BaseRootLayoutProps) => {
   const {
     catchAll = Noop,
     children,

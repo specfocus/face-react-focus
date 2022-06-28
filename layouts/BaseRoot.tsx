@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { BaseRootContext, BaseRootContextProps } from './BaseRootContext';
-import { BaseRootUI, BaseRootUIProps } from './BaseRootUI';
+import { BaseRootLayout, BaseRootLayoutProps } from './BaseRootLayout';
 
 /**
  * Main admin component, entry point to the application.
@@ -111,7 +111,7 @@ export const BaseRoot = (props: BaseRootProps) => {
       queryClient={queryClient}
       history={history}
     >
-      <BaseRootUI
+      <BaseRootLayout
         layout={layout}
         dashboard={dashboard}
         disableTelemetry={disableTelemetry}
@@ -124,9 +124,9 @@ export const BaseRoot = (props: BaseRootProps) => {
         ready={ready}
       >
         {children}
-      </BaseRootUI>
+      </BaseRootLayout>
     </BaseRootContext>
   );
 };
 
-export type BaseRootProps = BaseRootContextProps & BaseRootUIProps;
+export type BaseRootProps = BaseRootContextProps & BaseRootLayoutProps;

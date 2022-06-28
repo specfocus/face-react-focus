@@ -7,7 +7,7 @@ import { CustomRoutes } from '../routes/CustomRoutes';
 import { CoreLayoutProps } from '../types';
 import { BaseRootContext } from './BaseRootContext';
 import { BaseRootRoutes } from './BaseRootRoutes';
-import { Resource } from './Resource';
+import { Resource } from '../resources/Resource';
 
 const Layout = ({ children }: CoreLayoutProps) => <div>Layout {children}</div>;
 const CatchAll = () => <div />;

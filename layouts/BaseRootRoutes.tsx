@@ -12,7 +12,7 @@ import {
   LoadingComponent,
   ResourceChildren
 } from '../types';
-import { useConfigureAdminRouterFromChildren } from './useConfigureAdminRouterFromChildren';
+import { useConfigureAdminRouterFromChildren } from '../resources/useConfigureAdminRouterFromChildren';
 
 export const BaseRootRoutes = (props: BaseRootRoutesProps) => {
   const oneSecondHasPassed = useTimeout(1000);

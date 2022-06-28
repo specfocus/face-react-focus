@@ -1,7 +1,7 @@
 import { useAuthenticated, useLogin } from '@specfocus/view-focus.auth/providers';
 import { FakeBrowserDecorator } from '@specfocus/view-focus.navigation/storybook/FakeBrowser';
 import { Route } from 'react-router-dom';
-import { BaseRoot } from '../resources/BaseRoot';
+import { BaseRoot } from '../layouts/BaseRoot';
 import { Resource } from '../resources/Resource';
 import { CustomRoutes } from './CustomRoutes';
 

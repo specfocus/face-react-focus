@@ -14,7 +14,7 @@ import { History } from 'history';
 import { useMemo } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import type { DashboardComponent, ResourceChildren } from '../types';
-import { ResourceDefinitionContextProvider } from './ResourceDefinitionContext';
+import { ResourceDefinitionContextProvider } from '../resources/ResourceDefinitionContext';
 
 export interface BaseRootContextProps {
   authProvider?: AuthProvider | LegacyAuthProvider;
