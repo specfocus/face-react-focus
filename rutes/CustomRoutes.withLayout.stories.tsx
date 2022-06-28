@@ -1,13 +1,12 @@
-import React from 'react';
-import { Route } from 'react-router-dom';
-import { CoreAdmin } from './CoreAdmin';
 import { useAuthenticated, useLogin } from '@specfocus/view-focus.auth/providers';
+import { FakeBrowserDecorator } from '@specfocus/view-focus.navigation/storybook/FakeBrowser';
+import { Route } from 'react-router-dom';
+import { CoreAdmin } from '../resources/CoreAdmin';
+import { Resource } from '../resources/Resource';
 import { CustomRoutes } from './CustomRoutes';
-import { Resource } from './Resource';
-import { FakeBrowserDecorator } from '../storybook/FakeBrowser';
 
 export default {
-  title: 'Admin/CustomRoutes/WithLayout',
+  title: 'view-focus/CustomRoutes/WithLayout',
   decorators: [FakeBrowserDecorator],
   parameters: {
     initialEntries: ['/custom'],

@@ -1,20 +1,19 @@
-import React from 'react';
+import { useAuthenticated, useLogin } from '@specfocus/view-focus.auth/providers';
+import { FakeBrowserDecorator } from '@specfocus/view-focus.navigation/storybook/FakeBrowser';
 import { Route } from 'react-router-dom';
-import { useLogin } from '@specfocus/view-focus.auth/providers';
-import { FakeBrowserDecorator } from '../storybook/FakeBrowser';
-import { CoreAdmin } from './CoreAdmin';
+import { CoreAdmin } from '../resources/CoreAdmin';
+import { Resource } from '../resources/Resource';
 import { CustomRoutes } from './CustomRoutes';
-import { Resource } from './Resource';
 
 export default {
-  title: 'Admin/CustomRoutes/Unauthenticated',
+  title: 'view-focus/CustomRoutes/Authenticated',
   decorators: [FakeBrowserDecorator],
   parameters: {
-    initialEntries: ['/password-recovery'],
+    initialEntries: ['/authenticated'],
   },
 };
 
-export const UnauthenticatedCustomRoute = (argsOrProps, context) => {
+export const AuthenticatedCustomRoute = (argsOrProps, context) => {
   const history = context?.history || argsOrProps.history;
   return (
     <CoreAdmin
@@ -25,14 +24,15 @@ export const UnauthenticatedCustomRoute = (argsOrProps, context) => {
     >
       <CustomRoutes noLayout>
         <Route
-          path="/password-recovery"
-          element={<PasswordRecovery />}
+          path="/authenticated"
+          element={<CustomAuthenticatedNoLayout />}
         />
       </CustomRoutes>
       <Resource name="posts" list={PostList} />
     </CoreAdmin>
   );
 };
+
 const dataProvider = {
   getList: () => Promise.resolve({ data: [], total: 0 }),
   getOne: () => Promise.resolve({ data: { id: 0 } }),
@@ -73,10 +73,11 @@ const PostList = () => (
   </div>
 );
 
-const PasswordRecovery = () => {
+const CustomAuthenticatedNoLayout = () => {
+  useAuthenticated();
   return (
     <div>
-      <h1>Password recovery</h1>
+      <h1>Custom page without layout, requiring authentication</h1>
     </div>
   );
 };
