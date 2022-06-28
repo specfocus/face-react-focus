@@ -3,7 +3,7 @@ import { Form } from '@specfocus/view-focus.forms/forms';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import expect from 'expect';
 import { ReactElement, useCallback, useState } from 'react';
-import { CoreAdminContext } from '../core';
+import { BaseRootContext } from '../core';
 import { useInput } from './useInput';
 import { useReferenceInputController } from './useReferenceInputController';
 
@@ -49,13 +49,13 @@ describe('useReferenceInputController', () => {
   it('should fetch possible values using getList', async () => {
     const children = jest.fn().mockReturnValue(<p>child</p>);
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <Form>
           <ReferenceInputController {...defaultProps}>
             {children}
           </ReferenceInputController>
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     await waitFor(() => {
@@ -78,7 +78,7 @@ describe('useReferenceInputController', () => {
   it('should allow getList pagination and sorting customization', async () => {
     const children = jest.fn().mockReturnValue(<p>child</p>);
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <Form>
           <ReferenceInputController
             {...defaultProps}
@@ -89,7 +89,7 @@ describe('useReferenceInputController', () => {
             {children}
           </ReferenceInputController>
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     await waitFor(() => {
@@ -112,13 +112,13 @@ describe('useReferenceInputController', () => {
   it('should fetch current value using getMany', async () => {
     const children = jest.fn().mockReturnValue(<p>child</p>);
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <Form defaultValues={{ post_id: 1 }}>
           <ReferenceInputController {...defaultProps}>
             {children}
           </ReferenceInputController>
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     await waitFor(() => {
@@ -131,13 +131,13 @@ describe('useReferenceInputController', () => {
   it('should not fetch current value using getMany if it is empty', async () => {
     const children = jest.fn().mockReturnValue(<p>child</p>);
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <Form defaultValues={{ post_id: '' }}>
           <ReferenceInputController {...defaultProps}>
             {children}
           </ReferenceInputController>
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     await waitFor(() => {
@@ -150,7 +150,7 @@ describe('useReferenceInputController', () => {
   it('should pass possibleValues and record to child', async () => {
     const children = jest.fn().mockReturnValue(<p>child</p>);
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <Form defaultValues={{ post_id: 1 }}>
           <ReferenceInputController
             {...defaultProps}
@@ -160,7 +160,7 @@ describe('useReferenceInputController', () => {
             {children}
           </ReferenceInputController>
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     await waitFor(() => {
@@ -220,11 +220,11 @@ describe('useReferenceInputController', () => {
       );
     };
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <Form>
           <Component />
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     await waitFor(() => {
@@ -268,7 +268,7 @@ describe('useReferenceInputController', () => {
         return !!q && q.length > 2;
       });
       render(
-        <CoreAdminContext dataProvider={dataProvider}>
+        <BaseRootContext dataProvider={dataProvider}>
           <Form defaultValues={{ post_id: 1 }}>
             <ReferenceInputController
               {...defaultProps}
@@ -277,7 +277,7 @@ describe('useReferenceInputController', () => {
               {children}
             </ReferenceInputController>
           </Form>
-        </CoreAdminContext>
+        </BaseRootContext>
       );
 
       // not call on start
@@ -300,7 +300,7 @@ describe('useReferenceInputController', () => {
     it('should fetch current value using getMany even if enableGetChoices is returning false', async () => {
       const children = jest.fn().mockReturnValue(<p>child</p>);
       render(
-        <CoreAdminContext dataProvider={dataProvider}>
+        <BaseRootContext dataProvider={dataProvider}>
           <Form defaultValues={{ post_id: 1 }}>
             <ReferenceInputController
               {...defaultProps}
@@ -309,7 +309,7 @@ describe('useReferenceInputController', () => {
               {children}
             </ReferenceInputController>
           </Form>
-        </CoreAdminContext>
+        </BaseRootContext>
       );
 
       await waitFor(() => {

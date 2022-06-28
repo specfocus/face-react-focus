@@ -2,7 +2,7 @@ import { Route } from '@specfocus/view-focus.navigation/routes/Route';
 import { Routes } from '@specfocus/view-focus.navigation/routes/Routes';
 import { ComponentType, createElement, isValidElement, useEffect } from 'react';
 import {
-  AdminChildren,
+  ResourceChildren,
   CatchAllComponent,
   CoreLayoutProps,
   DashboardComponent,
@@ -12,15 +12,15 @@ import {
   TitleComponent
 } from '../types';
 import { Ready } from '../utils';
-import { CoreAdminRoutes } from './CoreAdminRoutes';
+import { BaseRootRoutes } from './BaseRootRoutes';
 
 export type ChildrenFunction = () => ComponentType[];
 
 const DefaultLayout = ({ children }: CoreLayoutProps) => <>{children}</>;
 
-export interface CoreAdminUIProps {
+export interface BaseRootUIProps {
   catchAll?: CatchAllComponent;
-  children?: AdminChildren;
+  children?: ResourceChildren;
   dashboard?: DashboardComponent;
   disableTelemetry?: boolean;
   layout?: LayoutComponent;
@@ -35,7 +35,7 @@ export interface CoreAdminUIProps {
   title?: TitleComponent;
 }
 
-export const CoreAdminUI = (props: CoreAdminUIProps) => {
+export const BaseRootUI = (props: BaseRootUIProps) => {
   const {
     catchAll = Noop,
     children,
@@ -73,7 +73,7 @@ export const CoreAdminUI = (props: CoreAdminUIProps) => {
       <Route
         path="/*"
         element={
-          <CoreAdminRoutes
+          <BaseRootRoutes
             catchAll={catchAll}
             dashboard={dashboard}
             layout={layout}
@@ -84,7 +84,7 @@ export const CoreAdminUI = (props: CoreAdminUIProps) => {
             title={title}
           >
             {children}
-          </CoreAdminRoutes>
+          </BaseRootRoutes>
         }
       />
     </Routes>

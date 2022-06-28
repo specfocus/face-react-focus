@@ -13,15 +13,15 @@ import React, {
   useState
 } from 'react';
 import {
-  AdminChildren,
+  ResourceChildren,
   RenderResourcesFunction,
   ResourceProps
 } from '../types';
-import { CustomRoutesProps } from './CustomRoutes';
+import { CustomRoutesProps } from '../routes/CustomRoutes';
 import { useResourceDefinitionContext } from './useResourceDefinitionContext';
 
 /**
- * This hook inspects the CoreAdminRouter children and returns them separated in three groups:
+ * This hook inspects the BaseRootRouter children and returns them separated in three groups:
  * - Custom routes without layout
  * - Custom routes with layout
  * - Resources
@@ -40,7 +40,7 @@ import { useResourceDefinitionContext } from './useResourceDefinitionContext';
  * } = useConfigureAdminRouterFromChildren(children);
  */
 export const useConfigureAdminRouterFromChildren = (
-  children: AdminChildren
+  children: ResourceChildren
 ): RoutesAndResources & { status: AdminRouterStatus; } => {
   const { permissions, isLoading } = usePermissions();
 
@@ -73,7 +73,7 @@ const useRoutesAndResourcesFromChildren = (
   permissions: any,
   isLoading: boolean
 ): [RoutesAndResources, AdminRouterStatus] => {
-  // Gather custom routes and resources that were declared as direct children of CoreAdminRouter
+  // Gather custom routes and resources that were declared as direct children of BaseRootRouter
   // e.g. Not returned from the child function (if any)
   // We need to know right away wether some resources were declared to correctly
   // initialize the status at the next stop
@@ -258,7 +258,7 @@ const getStatus = ({
 };
 
 /**
- * Inspect the children of a CoreAdminRouter to see if one of them is a function.
+ * Inspect the children of a BaseRootRouter to see if one of them is a function.
  * Throws an error if there are more than one function child.
  * Returns the function child if one was provided, or null otherwise.
  */

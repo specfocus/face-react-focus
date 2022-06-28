@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { CoreAdminContext, CoreAdminContextProps } from './CoreAdminContext';
-import { CoreAdminUI, CoreAdminUIProps } from './CoreAdminUI';
+import { BaseRootContext, BaseRootContextProps } from './BaseRootContext';
+import { BaseRootUI, BaseRootUIProps } from './BaseRootUI';
 
 /**
  * Main admin component, entry point to the application.
@@ -17,53 +17,53 @@ import { CoreAdminUI, CoreAdminUIProps } from './CoreAdminUI';
  * // static list of resources
  *
  * import {
- *     CoreAdmin,
+ *     BaseRoot,
  *     Resource,
  *     ListGuesser,
  *     useDataProvider,
  * } from '@specfocus/view-focus';
  *
  * const App = () => (
- *     <CoreAdmin dataProvider={myDataProvider}>
+ *     <BaseRoot dataProvider={myDataProvider}>
  *         <Resource name="posts" list={ListGuesser} />
- *     </CoreAdmin>
+ *     </BaseRoot>
  * );
  *
  * // dynamic list of resources based on permissions
  *
  * import {
- *     CoreAdmin,
+ *     BaseRoot,
  *     Resource,
  *     ListGuesser,
  *     useDataProvider,
  * } from '@specfocus/view-focus';
  *
  * const App = () => (
- *     <CoreAdmin dataProvider={myDataProvider}>
+ *     <BaseRoot dataProvider={myDataProvider}>
  *         {permissions => [
  *             <Resource name="posts" key="posts" list={ListGuesser} />,
  *         ]}
- *     </CoreAdmin>
+ *     </BaseRoot>
  * );
  *
  * // If you have to build a dynamic list of resources using a side effect,
- * // you can't use <CoreAdmin>. But as it delegates to sub components,
+ * // you can't use <BaseRoot>. But as it delegates to sub components,
  * // it's relatively straightforward to replace it:
  *
  * import React from 'react';
  * import { useEffect, useState } from 'react';
  * import {
- *     CoreAdminContext,
- *     CoreAdminUI,
+ *     BaseRootContext,
+ *     BaseRootUI,
  *     Resource,
  *     ListGuesser,
  *     useDataProvider,
  * } from '@specfocus/view-focus';
  *
  * const App = () => (
- *     <CoreAdminContext dataProvider={myDataProvider}>
+ *     <BaseRootContext dataProvider={myDataProvider}>
  *         <UI />
- *     </CoreAdminContext>
+ *     </BaseRootContext>
  * );
  *
  * const UI = () => {
@@ -74,15 +74,15 @@ import { CoreAdminUI, CoreAdminUIProps } from './CoreAdminUI';
  *     }, []);
  *
  *     return (
- *         <CoreAdminUI>
+ *         <BaseRootUI>
  *             {resources.map(resource => (
  *                 <Resource name={resource.name} key={resource.key} list={ListGuesser} />
  *             ))}
- *         </CoreAdminUI>
+ *         </BaseRootUI>
  *     );
  * };
  */
-export const CoreAdmin = (props: CoreAdminProps) => {
+export const BaseRoot = (props: BaseRootProps) => {
   const {
     authProvider,
     basename,
@@ -103,7 +103,7 @@ export const CoreAdmin = (props: CoreAdminProps) => {
     title = 'React Admin',
   } = props;
   return (
-    <CoreAdminContext
+    <BaseRootContext
       authProvider={authProvider}
       basename={basename}
       dataProvider={dataProvider}
@@ -111,7 +111,7 @@ export const CoreAdmin = (props: CoreAdminProps) => {
       queryClient={queryClient}
       history={history}
     >
-      <CoreAdminUI
+      <BaseRootUI
         layout={layout}
         dashboard={dashboard}
         disableTelemetry={disableTelemetry}
@@ -124,9 +124,9 @@ export const CoreAdmin = (props: CoreAdminProps) => {
         ready={ready}
       >
         {children}
-      </CoreAdminUI>
-    </CoreAdminContext>
+      </BaseRootUI>
+    </BaseRootContext>
   );
 };
 
-export type CoreAdminProps = CoreAdminContextProps & CoreAdminUIProps;
+export type BaseRootProps = BaseRootContextProps & BaseRootUIProps;

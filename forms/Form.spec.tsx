@@ -7,7 +7,7 @@ import { required } from '@specfocus/view-focus.forms/forms/validate';
 import { validateResolver } from '@specfocus/view-focus.forms/validations/resolver';
 import { useNotificationContext } from '@specfocus/view-focus.notification/providers';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { CoreAdminContext } from '../core';
+import { BaseRootContext } from '../core';
 import { Form } from './Form';
 import { useInput } from './useInput';
 
@@ -35,24 +35,24 @@ describe('Form', () => {
 
   it('Does not make the form dirty when reinitialized from a record', () => {
     const { rerender } = render(
-      <CoreAdminContext dataProvider={testDataProvider()}>
+      <BaseRootContext dataProvider={testDataProvider()}>
         <Form onSubmit={jest.fn()}>
           <Input source="name" defaultValue="Bar" />
           <IsDirty />
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     expect(screen.getByDisplayValue('Bar')).not.toBeNull();
     expect(screen.getByText('isDirty: false')).not.toBeNull();
 
     rerender(
-      <CoreAdminContext dataProvider={testDataProvider()}>
+      <BaseRootContext dataProvider={testDataProvider()}>
         <Form onSubmit={jest.fn()} record={{ id: 1, name: 'Foo' }}>
           <Input source="name" defaultValue="Bar" />
           <IsDirty />
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     expect(screen.getByDisplayValue('Foo')).not.toBeNull();
@@ -61,12 +61,12 @@ describe('Form', () => {
 
   it('Does not make the form dirty when initialized from a record with a missing field and this field has an defaultValue', () => {
     render(
-      <CoreAdminContext dataProvider={testDataProvider()}>
+      <BaseRootContext dataProvider={testDataProvider()}>
         <Form onSubmit={jest.fn()} record={{ id: 1 }}>
           <Input source="name" defaultValue="Bar" />
           <IsDirty />
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     expect(screen.getByDisplayValue('Bar')).not.toBeNull();
@@ -75,19 +75,19 @@ describe('Form', () => {
 
   it('Does not make the form dirty when reinitialized from a different record', () => {
     const { rerender } = render(
-      <CoreAdminContext dataProvider={testDataProvider()}>
+      <BaseRootContext dataProvider={testDataProvider()}>
         <Form onSubmit={jest.fn()} record={{ id: 1, name: 'Foo' }}>
           <Input source="name" defaultValue="Bar" />
           <IsDirty />
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     expect(screen.getByDisplayValue('Foo')).not.toBeNull();
     expect(screen.getByText('isDirty: false')).not.toBeNull();
 
     rerender(
-      <CoreAdminContext dataProvider={testDataProvider()}>
+      <BaseRootContext dataProvider={testDataProvider()}>
         <Form
           onSubmit={jest.fn()}
           record={{
@@ -99,7 +99,7 @@ describe('Form', () => {
           <Input source="name" defaultValue="Bar" />
           <IsDirty />
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     expect(screen.getByDisplayValue('Foo')).not.toBeNull();
@@ -115,7 +115,7 @@ describe('Form', () => {
     };
 
     render(
-      <CoreAdminContext dataProvider={testDataProvider()}>
+      <BaseRootContext dataProvider={testDataProvider()}>
         <>
           <Form onSubmit={jest.fn()}>
             <Input source="name" validate={required()} />
@@ -123,7 +123,7 @@ describe('Form', () => {
           </Form>
           <Notification />
         </>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     fireEvent.click(screen.getByText('Submit'));
@@ -147,7 +147,7 @@ describe('Form', () => {
     );
 
     render(
-      <CoreAdminContext dataProvider={testDataProvider()}>
+      <BaseRootContext dataProvider={testDataProvider()}>
         <>
           <Form onSubmit={onSubmit}>
             <Input source="name" />
@@ -155,7 +155,7 @@ describe('Form', () => {
           </Form>
           <Notification />
         </>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     fireEvent.click(screen.getByText('Submit'));
@@ -167,7 +167,7 @@ describe('Form', () => {
   it('should set null or undefined values to null', async () => {
     const onSubmit = jest.fn();
     render(
-      <CoreAdminContext dataProvider={testDataProvider()}>
+      <BaseRootContext dataProvider={testDataProvider()}>
         <Form defaultValues={{ foo: 23 }} onSubmit={onSubmit}>
           <Input
             source="foo"
@@ -176,7 +176,7 @@ describe('Form', () => {
           />
           <button type="submit">Submit</button>
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     fireEvent.change(screen.getByLabelText('name'), {
@@ -192,7 +192,7 @@ describe('Form', () => {
   it('should set null or undefined deep values to null', async () => {
     const onSubmit = jest.fn();
     render(
-      <CoreAdminContext dataProvider={testDataProvider()}>
+      <BaseRootContext dataProvider={testDataProvider()}>
         <Form defaultValues={{ foo: { bar: 23 } }} onSubmit={onSubmit}>
           <Input
             source="foo.bar"
@@ -201,7 +201,7 @@ describe('Form', () => {
           />
           <button type="submit">Submit</button>
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     fireEvent.change(screen.getByLabelText('name'), {
@@ -218,12 +218,12 @@ describe('Form', () => {
     const str = 'hello';
     const onSubmit = jest.fn();
     render(
-      <CoreAdminContext dataProvider={testDataProvider()}>
+      <BaseRootContext dataProvider={testDataProvider()}>
         <Form defaultValues={{ foo: null }} onSubmit={onSubmit}>
           <Input source="foo" parse={() => str} format={() => str} />
           <button type="submit">Submit</button>
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     fireEvent.change(screen.getByLabelText('name'), {
@@ -240,7 +240,7 @@ describe('Form', () => {
 
     const onSubmit = jest.fn();
     render(
-      <CoreAdminContext dataProvider={testDataProvider()}>
+      <BaseRootContext dataProvider={testDataProvider()}>
         <Form defaultValues={{ foo: null }} onSubmit={onSubmit}>
           <Input
             source="foo"
@@ -249,7 +249,7 @@ describe('Form', () => {
           />
           <button type="submit">Submit</button>
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     fireEvent.change(screen.getByLabelText('name'), {
@@ -267,7 +267,7 @@ describe('Form', () => {
 
     const onSubmit = jest.fn();
     render(
-      <CoreAdminContext dataProvider={testDataProvider()}>
+      <BaseRootContext dataProvider={testDataProvider()}>
         <Form defaultValues={{ foo: null }} onSubmit={onSubmit}>
           <Input
             source="foo"
@@ -276,7 +276,7 @@ describe('Form', () => {
           />
           <button type="submit">Submit</button>
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     fireEvent.change(screen.getByLabelText('name'), {
@@ -294,7 +294,7 @@ describe('Form', () => {
 
     const onSubmit = jest.fn();
     render(
-      <CoreAdminContext dataProvider={testDataProvider()}>
+      <BaseRootContext dataProvider={testDataProvider()}>
         <Form defaultValues={{ foo: null }} onSubmit={onSubmit}>
           <Input
             source="foo"
@@ -303,7 +303,7 @@ describe('Form', () => {
           />
           <button type="submit">Submit</button>
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     fireEvent.change(screen.getByLabelText('name'), {
@@ -320,7 +320,7 @@ describe('Form', () => {
 
     const onSubmit = jest.fn();
     render(
-      <CoreAdminContext dataProvider={testDataProvider()}>
+      <BaseRootContext dataProvider={testDataProvider()}>
         <Form
           defaultValues={{ foo: { bar: null } }}
           onSubmit={onSubmit}
@@ -332,7 +332,7 @@ describe('Form', () => {
           />
           <button type="submit">Submit</button>
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     fireEvent.change(screen.getByLabelText('name'), {
@@ -349,7 +349,7 @@ describe('Form', () => {
 
     const onSubmit = jest.fn();
     render(
-      <CoreAdminContext dataProvider={testDataProvider()}>
+      <BaseRootContext dataProvider={testDataProvider()}>
         <Form
           defaultValues={{ foo: [{ foo: 1 }, {}] }}
           onSubmit={onSubmit}
@@ -361,7 +361,7 @@ describe('Form', () => {
           />
           <button type="submit">Submit</button>
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     fireEvent.change(screen.getByLabelText('name'), {
@@ -378,7 +378,7 @@ describe('Form', () => {
 
     const onSubmit = jest.fn();
     render(
-      <CoreAdminContext dataProvider={testDataProvider()}>
+      <BaseRootContext dataProvider={testDataProvider()}>
         <Form
           defaultValues={{ foo: [{ foo: 1 }, { foo: 4 }] }}
           onSubmit={onSubmit}
@@ -390,7 +390,7 @@ describe('Form', () => {
           />
           <button type="submit">Submit</button>
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     fireEvent.change(screen.getByLabelText('name'), {
@@ -407,7 +407,7 @@ describe('Form', () => {
 
     const onSubmit = jest.fn();
     render(
-      <CoreAdminContext dataProvider={testDataProvider()}>
+      <BaseRootContext dataProvider={testDataProvider()}>
         <Form
           defaultValues={{
             foo: [{ foo: 1, foo2: 2 }, { foo: 3 }, { foo: 4 }],
@@ -421,7 +421,7 @@ describe('Form', () => {
           />
           <button type="submit">Submit</button>
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     fireEvent.change(screen.getByLabelText('name'), {
@@ -439,7 +439,7 @@ describe('Form', () => {
 
     const onSubmit = jest.fn();
     render(
-      <CoreAdminContext dataProvider={testDataProvider()}>
+      <BaseRootContext dataProvider={testDataProvider()}>
         <Form defaultValues={initialValues} onSubmit={onSubmit}>
           <Input
             source="foo"
@@ -448,7 +448,7 @@ describe('Form', () => {
           />
           <button type="submit">Submit</button>
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     fireEvent.change(screen.getByLabelText('name'), {
@@ -470,7 +470,7 @@ describe('Form', () => {
       .required();
 
     render(
-      <CoreAdminContext dataProvider={testDataProvider()}>
+      <BaseRootContext dataProvider={testDataProvider()}>
         <Form onSubmit={onSubmit} resolver={validateResolver(schema)}>
           <Input source="title" />
           <Input
@@ -480,7 +480,7 @@ describe('Form', () => {
           />
           <button type="submit">Submit</button>
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     fireEvent.click(screen.getByText('Submit'));

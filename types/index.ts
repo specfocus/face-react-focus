@@ -10,11 +10,11 @@ export type Dispatch<T> = T extends (...args: infer A) => any
   ? (...args: A) => void
   : never;
 
-export type ResourceElement = ReactElement<ResourceProps>;
+export type ResourceElement = ReactElement<ResourceProps> | ReactNode;
 export type RenderResourcesFunction = (
   permissions: any
 ) => ResourceElement[] | Promise<ResourceElement[]>;
-export type AdminChildren = RenderResourcesFunction | ReactNode;
+export type ResourceChildren = RenderResourcesFunction | ReactNode | ReactNode[];
 
 export type TitleComponent = string | ReactElement<any>;
 export type CatchAllComponent = FunctionComponent<{ title?: TitleComponent; }>;

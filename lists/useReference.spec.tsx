@@ -2,7 +2,7 @@ import React from 'react';
 import expect from 'expect';
 import { render, waitFor } from '@testing-library/react';
 
-import { CoreAdminContext } from '../core';
+import { BaseRootContext } from '../core';
 import { useReference } from './useReference';
 import { testDataProvider, useGetMany } from '@specfocus/view-focus.data/operations';
 
@@ -30,9 +30,9 @@ describe('useReference', () => {
 
   it('should fetch reference on mount', async () => {
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <UseReference {...defaultProps} />
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await waitFor(() => {
       expect(dataProvider.getMany).toHaveBeenCalledTimes(1);
@@ -44,16 +44,16 @@ describe('useReference', () => {
 
   it('should not refetch reference on update', async () => {
     const { rerender } = render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <UseReference {...defaultProps} />
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await new Promise(resolve => setTimeout(resolve));
     expect(dataProvider.getMany).toHaveBeenCalledTimes(1);
     rerender(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <UseReference {...defaultProps} />
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await new Promise(resolve => setTimeout(resolve));
     expect(dataProvider.getMany).toHaveBeenCalledTimes(1);
@@ -61,17 +61,17 @@ describe('useReference', () => {
 
   it('should refetch reference when id changes', async () => {
     const { rerender } = render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <UseReference {...defaultProps} />
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await waitFor(() => {
       expect(dataProvider.getMany).toHaveBeenCalledTimes(1);
     });
     rerender(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <UseReference {...defaultProps} id={2} />
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await waitFor(() => {
       expect(dataProvider.getMany).toHaveBeenCalledTimes(2);
@@ -80,17 +80,17 @@ describe('useReference', () => {
 
   it('should refetch reference when reference prop changes', async () => {
     const { rerender } = render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <UseReference {...defaultProps} />
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await waitFor(() => {
       expect(dataProvider.getMany).toHaveBeenCalledTimes(1);
     });
     rerender(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <UseReference {...defaultProps} reference="comments" />
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await waitFor(() => {
       expect(dataProvider.getMany).toHaveBeenCalledTimes(2);
@@ -99,17 +99,17 @@ describe('useReference', () => {
 
   it('it should not refetch reference when other props change', async () => {
     const { rerender } = render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <UseReference {...defaultProps} />
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await waitFor(() => {
       expect(dataProvider.getMany).toHaveBeenCalledTimes(1);
     });
     rerender(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <UseReference {...defaultProps} className="bar" />
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await new Promise(resolve => setTimeout(resolve));
     expect(dataProvider.getMany).toHaveBeenCalledTimes(1);
@@ -118,9 +118,9 @@ describe('useReference', () => {
   it('should retrieve referenceRecord from dataProvider state', async () => {
     const hookValue = jest.fn();
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <UseReference {...defaultProps} callback={hookValue} />
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await waitFor(() => {
       expect(hookValue).toHaveBeenCalledTimes(2);
@@ -148,17 +148,17 @@ describe('useReference', () => {
     };
     const hookValue = jest.fn();
     const { rerender } = render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <FecthGetMany />
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await waitFor(() => {
       expect(dataProvider.getMany).toHaveBeenCalledTimes(1);
     });
     rerender(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <UseReference {...defaultProps} callback={hookValue} />
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await waitFor(() => {
       expect(hookValue).toHaveBeenCalledTimes(2);
@@ -181,11 +181,11 @@ describe('useReference', () => {
 
   it('should aggregate multiple calls for the same resource into one', async () => {
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <UseReference {...defaultProps} id={1} />
         <UseReference {...defaultProps} id={2} />
         <UseReference {...defaultProps} id={3} />
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await waitFor(() => {
       expect(dataProvider.getMany).toHaveBeenCalledTimes(1);
@@ -197,11 +197,11 @@ describe('useReference', () => {
 
   it('should not aggregate multiple calls for the different resources', async () => {
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <UseReference {...defaultProps} id={1} />
         <UseReference {...defaultProps} id={2} />
         <UseReference {...defaultProps} id={3} reference="comments" />
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await waitFor(() => {
       expect(dataProvider.getMany).toHaveBeenCalledTimes(2);
@@ -216,11 +216,11 @@ describe('useReference', () => {
 
   it('should deduplicated repeated ids', async () => {
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <UseReference {...defaultProps} id={1} />
         <UseReference {...defaultProps} id={1} />
         <UseReference {...defaultProps} id={2} />
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await waitFor(() => {
       expect(dataProvider.getMany).toHaveBeenCalledTimes(1);

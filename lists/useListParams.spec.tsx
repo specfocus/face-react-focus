@@ -5,7 +5,7 @@ import { stringify } from 'query-string';
 import { createMemoryHistory } from 'history';
 import { fireEvent, waitFor } from '@testing-library/react';
 
-import { CoreAdminContext } from '../core';
+import { BaseRootContext } from '../core';
 import { testDataProvider } from '@specfocus/view-focus.data/providers/testDataProvider';
 import { useStore } from '../store/useStore';
 import { useListParams, getQuery, getNumberOrDefault } from './useListParams';
@@ -201,12 +201,12 @@ describe('useListParams', () => {
         return <span />;
       };
       render(
-        <CoreAdminContext
+        <BaseRootContext
           history={history}
           dataProvider={testDataProvider()}
         >
           <TestedComponent />
-        </CoreAdminContext>
+        </BaseRootContext>
       );
       await waitFor(() => {
         expect(navigate).toHaveBeenCalledWith(
@@ -240,12 +240,12 @@ describe('useListParams', () => {
         return <span />;
       };
       render(
-        <CoreAdminContext
+        <BaseRootContext
           history={history}
           dataProvider={testDataProvider()}
         >
           <TestedComponent />
-        </CoreAdminContext>
+        </BaseRootContext>
       );
       await waitFor(() => {
         expect(navigate).toBeCalledWith(
@@ -280,12 +280,12 @@ describe('useListParams', () => {
         return <span />;
       };
       render(
-        <CoreAdminContext
+        <BaseRootContext
           history={history}
           dataProvider={testDataProvider()}
         >
           <TestedComponent />
-        </CoreAdminContext>
+        </BaseRootContext>
       );
       await waitFor(() => {
         expect(navigate).toBeCalledWith(
@@ -322,12 +322,12 @@ describe('useListParams', () => {
         return <span />;
       };
       render(
-        <CoreAdminContext
+        <BaseRootContext
           history={history}
           dataProvider={testDataProvider()}
         >
           <TestedComponent />
-        </CoreAdminContext>
+        </BaseRootContext>
       );
       await waitFor(() => {
         expect(navigate).toBeCalledWith(
@@ -378,13 +378,13 @@ describe('useListParams', () => {
         return null;
       };
       render(
-        <CoreAdminContext
+        <BaseRootContext
           history={history}
           dataProvider={testDataProvider()}
         >
           <Component />
           <StoreReader />
-        </CoreAdminContext>
+        </BaseRootContext>
       );
 
       fireEvent.click(screen.getByText('update'));
@@ -414,13 +414,13 @@ describe('useListParams', () => {
       };
 
       render(
-        <CoreAdminContext
+        <BaseRootContext
           history={history}
           dataProvider={testDataProvider()}
         >
           <Component />
           <StoreReader />
-        </CoreAdminContext>
+        </BaseRootContext>
       );
 
       fireEvent.click(screen.getByText('update'));

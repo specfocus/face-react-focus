@@ -2,7 +2,7 @@ import { act, render } from '@testing-library/react';
 import expect from 'expect';
 import React from 'react';
 import { type Location } from '@specfocus/view-focus.navigation/routes/useLocation';
-import { CoreAdminContext } from '../core';
+import { BaseRootContext } from '../core';
 import { testDataProvider, useCreate } from '@specfocus/view-focus.data/operations';
 import { useNotificationContext } from '@specfocus/view-focus.notification/providers';
 import { CreateController } from './CreateController';
@@ -71,14 +71,14 @@ describe('useCreateController', () => {
     });
     let saveCallback;
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <CreateController {...defaultProps}>
           {({ save }) => {
             saveCallback = save;
             return null;
           }}
         </CreateController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await act(async () => saveCallback({ foo: 'bar' }));
     expect(dataProvider.create).toHaveBeenCalledWith('posts', {
@@ -104,7 +104,7 @@ describe('useCreateController', () => {
     };
 
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <Notification />
         <CreateController {...defaultProps}>
           {({ save }) => {
@@ -112,7 +112,7 @@ describe('useCreateController', () => {
             return null;
           }}
         </CreateController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await act(async () => saveCallback({ foo: 'bar' }));
     expect(notificationsSpy).toEqual([
@@ -142,7 +142,7 @@ describe('useCreateController', () => {
     };
 
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <Notification />
         <CreateController {...defaultProps}>
           {({ save }) => {
@@ -150,7 +150,7 @@ describe('useCreateController', () => {
             return null;
           }}
         </CreateController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await act(async () => saveCallback({ foo: 'bar' }));
     expect(notificationsSpy).toEqual([
@@ -181,7 +181,7 @@ describe('useCreateController', () => {
     };
 
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <Notification />
         <CreateController
           {...defaultProps}
@@ -192,7 +192,7 @@ describe('useCreateController', () => {
             return null;
           }}
         </CreateController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await act(async () => saveCallback({ foo: 'bar' }));
     expect(onSuccess).toHaveBeenCalled();
@@ -219,7 +219,7 @@ describe('useCreateController', () => {
     };
 
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <Notification />
         <CreateController
           {...defaultProps}
@@ -230,7 +230,7 @@ describe('useCreateController', () => {
             return null;
           }}
         </CreateController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await act(async () =>
       saveCallback(
@@ -264,7 +264,7 @@ describe('useCreateController', () => {
     };
 
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <Notification />
         <CreateController
           {...defaultProps}
@@ -275,7 +275,7 @@ describe('useCreateController', () => {
             return null;
           }}
         </CreateController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await act(async () => saveCallback({ foo: 'bar' }));
     expect(onError).toHaveBeenCalled();
@@ -302,7 +302,7 @@ describe('useCreateController', () => {
     };
 
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <Notification />
         <CreateController
           {...defaultProps}
@@ -313,7 +313,7 @@ describe('useCreateController', () => {
             return null;
           }}
         </CreateController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await act(async () =>
       saveCallback(
@@ -344,14 +344,14 @@ describe('useCreateController', () => {
       transformed: true,
     }));
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <CreateController {...defaultProps} transform={transform}>
           {({ save }) => {
             saveCallback = save;
             return null;
           }}
         </CreateController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await act(async () => saveCallback({ foo: 'bar' }));
     expect(transform).toHaveBeenCalledWith({ foo: 'bar' });
@@ -377,14 +377,14 @@ describe('useCreateController', () => {
       transformed: true,
     }));
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <CreateController {...defaultProps} transform={transform}>
           {({ save }) => {
             saveCallback = save;
             return null;
           }}
         </CreateController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await act(async () =>
       saveCallback(
@@ -428,7 +428,7 @@ describe('useCreateController', () => {
       return null;
     };
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <CreateController {...defaultProps}>
           {({
             save,
@@ -451,7 +451,7 @@ describe('useCreateController', () => {
             );
           }}
         </CreateController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await act(async () => saveCallback({ foo: 'bar' }));
 

@@ -6,15 +6,15 @@ import { Navigate } from '@specfocus/view-focus.navigation/routes/useNavigate';
 import { useTimeout } from '@specfocus/view-focus.states/states/useTimeout';
 import { Children, FunctionComponent, useEffect, useState } from 'react';
 import {
-  AdminChildren,
   CatchAllComponent,
   CoreLayoutProps,
   LayoutComponent,
-  LoadingComponent
+  LoadingComponent,
+  ResourceChildren
 } from '../types';
 import { useConfigureAdminRouterFromChildren } from './useConfigureAdminRouterFromChildren';
 
-export const CoreAdminRoutes = (props: CoreAdminRoutesProps) => {
+export const BaseRootRoutes = (props: BaseRootRoutesProps) => {
   const oneSecondHasPassed = useTimeout(1000);
   useScrollToTop();
   const createPath = useCreatePath();
@@ -125,14 +125,14 @@ export const CoreAdminRoutes = (props: CoreAdminRoutesProps) => {
   );
 };
 
-CoreAdminRoutes.defaultProps = {
+BaseRootRoutes.defaultProps = {
   customRoutes: [],
 };
 
-export interface CoreAdminRoutesProps extends Omit<CoreLayoutProps, 'children'> {
+export interface BaseRootRoutesProps extends Omit<CoreLayoutProps, 'children'> {
   layout: LayoutComponent;
   catchAll: CatchAllComponent;
-  children?: AdminChildren;
+  children?: ResourceChildren;
   loading: LoadingComponent;
   requireAuth?: boolean;
   ready?: FunctionComponent;

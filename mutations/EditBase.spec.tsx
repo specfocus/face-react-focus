@@ -2,7 +2,7 @@ import React from 'react';
 import expect from 'expect';
 import { render, screen, waitFor } from '@testing-library/react';
 import { EditBase } from './EditBase';
-import { CoreAdminContext } from '../core';
+import { BaseRootContext } from '../core';
 import { testDataProvider } from '@specfocus/view-focus.data/providers/testDataProvider';
 import { useSaveContext } from '../contexts/saveContext';
 import { useRecordContext } from '../records';
@@ -44,11 +44,11 @@ describe('EditBase', () => {
       );
     };
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <EditBase {...defaultProps} mutationMode="pessimistic">
           <Child />
         </EditBase>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     await waitFor(() => {
@@ -92,7 +92,7 @@ describe('EditBase', () => {
       );
     };
     const { getByLabelText } = render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <EditBase
           {...defaultProps}
           mutationMode="pessimistic"
@@ -100,7 +100,7 @@ describe('EditBase', () => {
         >
           <Child />
         </EditBase>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     await waitFor(() => {
@@ -155,7 +155,7 @@ describe('EditBase', () => {
       );
     };
     const { getByLabelText } = render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <EditBase
           {...defaultProps}
           mutationMode="pessimistic"
@@ -163,7 +163,7 @@ describe('EditBase', () => {
         >
           <Child />
         </EditBase>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     await waitFor(() => {
@@ -216,7 +216,7 @@ describe('EditBase', () => {
       );
     };
     const { getByLabelText } = render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <EditBase
           {...defaultProps}
           mutationMode="pessimistic"
@@ -224,7 +224,7 @@ describe('EditBase', () => {
         >
           <Child />
         </EditBase>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     await waitFor(() => {
@@ -276,7 +276,7 @@ describe('EditBase', () => {
       );
     };
     const { getByLabelText } = render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <EditBase
           {...defaultProps}
           mutationMode="pessimistic"
@@ -284,7 +284,7 @@ describe('EditBase', () => {
         >
           <Child />
         </EditBase>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     await waitFor(() => {
@@ -336,7 +336,7 @@ describe('EditBase', () => {
       );
     };
     const { getByLabelText } = render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <EditBase
           {...defaultProps}
           mutationMode="pessimistic"
@@ -344,7 +344,7 @@ describe('EditBase', () => {
         >
           <Child />
         </EditBase>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     await waitFor(() => {
@@ -401,7 +401,7 @@ describe('EditBase', () => {
       );
     };
     const { getByLabelText } = render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <EditBase
           {...defaultProps}
           mutationMode="pessimistic"
@@ -409,7 +409,7 @@ describe('EditBase', () => {
         >
           <Child />
         </EditBase>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     await waitFor(() => {

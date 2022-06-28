@@ -1,5 +1,5 @@
 import { memo, ReactElement } from 'react';
-import { useTranslateLabel } from '../i18n/useTranslateLabel';
+import { useTranslateLabel } from '../translations/useTranslateLabel';
 
 export interface FieldTitleProps {
   isRequired?: boolean;

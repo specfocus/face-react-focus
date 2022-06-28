@@ -1,7 +1,7 @@
 import { useLogin } from '@specfocus/view-focus.auth/providers';
 import { FakeBrowserDecorator } from '@specfocus/view-focus.navigation/storybook/FakeBrowser';
 import { Route } from 'react-router-dom';
-import { CoreAdmin } from '../resources/CoreAdmin';
+import { BaseRoot } from '../resources/BaseRoot';
 import { Resource } from '../resources/Resource';
 import { CustomRoutes } from './CustomRoutes';
 
@@ -16,7 +16,7 @@ export default {
 export const UnauthenticatedCustomRoute = (argsOrProps, context) => {
   const history = context?.history || argsOrProps.history;
   return (
-    <CoreAdmin
+    <BaseRoot
       authProvider={authProvider}
       dataProvider={dataProvider as any}
       history={history}
@@ -29,7 +29,7 @@ export const UnauthenticatedCustomRoute = (argsOrProps, context) => {
         />
       </CustomRoutes>
       <Resource name="posts" list={PostList} />
-    </CoreAdmin>
+    </BaseRoot>
   );
 };
 const dataProvider = {

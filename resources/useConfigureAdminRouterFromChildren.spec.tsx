@@ -2,8 +2,8 @@ import { render, screen, waitFor } from '@testing-library/react';
 import expect from 'expect';
 import { createMemoryHistory } from 'history';
 import { AuthProvider, CoreLayoutProps, ResourceProps } from '../types';
-import { CoreAdminContext } from './CoreAdminContext';
-import { CoreAdminRoutes } from './CoreAdminRoutes';
+import { BaseRootContext } from './BaseRootContext';
+import { BaseRootRoutes } from './BaseRootRoutes';
 import { Resource } from './Resource';
 import { useResourceDefinitions } from './useResourceDefinitions';
 
@@ -34,8 +34,8 @@ const TestedComponent = ({ role }) => {
   const history = createMemoryHistory();
 
   return (
-    <CoreAdminContext history={history}>
-      <CoreAdminRoutes
+    <BaseRootContext history={history}>
+      <BaseRootRoutes
         layout={MyLayout}
         catchAll={CatchAll}
         loading={Loading}
@@ -51,8 +51,8 @@ const TestedComponent = ({ role }) => {
                 : []
           }
         </>
-      </CoreAdminRoutes>
-    </CoreAdminContext>
+      </BaseRootRoutes>
+    </BaseRootContext>
   );
 };
 
@@ -60,8 +60,8 @@ const TestedComponentReturningNull = ({ role }) => {
   const history = createMemoryHistory();
 
   return (
-    <CoreAdminContext history={history}>
-      <CoreAdminRoutes
+    <BaseRootContext history={history}>
+      <BaseRootRoutes
         layout={MyLayout}
         catchAll={CatchAll}
         loading={Loading}
@@ -77,8 +77,8 @@ const TestedComponentReturningNull = ({ role }) => {
                 : null
           }
         </>
-      </CoreAdminRoutes>
-    </CoreAdminContext>
+      </BaseRootRoutes>
+    </BaseRootContext>
   );
 };
 
@@ -93,8 +93,8 @@ const TestedComponentWithAuthProvider = ({ callback }) => {
   };
 
   return (
-    <CoreAdminContext history={history} authProvider={authProvider}>
-      <CoreAdminRoutes
+    <BaseRootContext history={history} authProvider={authProvider}>
+      <BaseRootRoutes
         layout={MyLayout}
         catchAll={CatchAll}
         loading={Loading}
@@ -102,8 +102,8 @@ const TestedComponentWithAuthProvider = ({ callback }) => {
         <Resource name="posts" />
         <Resource name="comments" />
         {callback}
-      </CoreAdminRoutes>
-    </CoreAdminContext>
+      </BaseRootRoutes>
+    </BaseRootContext>
   );
 };
 
@@ -155,8 +155,8 @@ const TestedComponentWithPermissions = () => {
   };
 
   return (
-    <CoreAdminContext authProvider={authProvider} history={history}>
-      <CoreAdminRoutes
+    <BaseRootContext authProvider={authProvider} history={history}>
+      <BaseRootRoutes
         layout={MyLayout}
         catchAll={CatchAll}
         loading={Loading}
@@ -182,8 +182,8 @@ const TestedComponentWithPermissions = () => {
           edit={<div />}
           show={<div />}
         />
-      </CoreAdminRoutes>
-    </CoreAdminContext>
+      </BaseRootRoutes>
+    </BaseRootContext>
   );
 };
 

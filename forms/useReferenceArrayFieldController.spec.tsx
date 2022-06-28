@@ -4,7 +4,7 @@ import { render, waitFor } from '@testing-library/react';
 
 import { useReferenceArrayFieldController } from './useReferenceArrayFieldController';
 import { testDataProvider } from '@specfocus/view-focus.data/providers/testDataProvider';
-import { CoreAdminContext } from '../core';
+import { BaseRootContext } from '../core';
 
 const ReferenceArrayFieldController = props => {
   const { children, ...rest } = props;
@@ -38,7 +38,7 @@ describe('<useReferenceArrayFieldController />', () => {
   it('should set the isLoading prop to true when related records are not yet fetched', () => {
     const children = jest.fn().mockReturnValue('child');
     render(
-      <CoreAdminContext dataProvider={testDataProvider()}>
+      <BaseRootContext dataProvider={testDataProvider()}>
         <ReferenceArrayFieldController
           resource="foo"
           reference="bar"
@@ -47,7 +47,7 @@ describe('<useReferenceArrayFieldController />', () => {
         >
           {children}
         </ReferenceArrayFieldController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     expect(children).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -63,7 +63,7 @@ describe('<useReferenceArrayFieldController />', () => {
   it('should call dataProvider.getMAny on mount and return the result in the data prop', async () => {
     const children = jest.fn().mockReturnValue('child');
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <ReferenceArrayFieldController
           resource="foo"
           reference="bar"
@@ -72,7 +72,7 @@ describe('<useReferenceArrayFieldController />', () => {
         >
           {children}
         </ReferenceArrayFieldController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await waitFor(() =>
       expect(dataProvider.getMany).toHaveBeenCalledTimes(1)
@@ -94,7 +94,7 @@ describe('<useReferenceArrayFieldController />', () => {
   it('should filter string data based on the filter props', async () => {
     const children = jest.fn().mockReturnValue('child');
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <ReferenceArrayFieldController
           resource="foo"
           reference="bar"
@@ -104,7 +104,7 @@ describe('<useReferenceArrayFieldController />', () => {
         >
           {children}
         </ReferenceArrayFieldController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await waitFor(() =>
       expect(dataProvider.getMany).toHaveBeenCalledTimes(1)
@@ -133,7 +133,7 @@ describe('<useReferenceArrayFieldController />', () => {
       }),
     });
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <ReferenceArrayFieldController
           resource="foo"
           reference="bar"
@@ -143,7 +143,7 @@ describe('<useReferenceArrayFieldController />', () => {
         >
           {children}
         </ReferenceArrayFieldController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await waitFor(() =>
       expect(dataProvider.getMany).toHaveBeenCalledTimes(1)

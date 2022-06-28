@@ -3,7 +3,7 @@ import expect from 'expect';
 import { useEffect } from 'react';
 import { screen, render, waitFor } from '@testing-library/react';
 
-import { CoreAdminContext } from '../core';
+import { BaseRootContext } from '../core';
 import { testDataProvider } from '@specfocus/view-focus.data/providers/testDataProvider';
 import { useSaveContext } from './useSaveContext';
 import { CreateBase } from './CreateBase';
@@ -36,11 +36,11 @@ describe('CreateBase', () => {
       return null;
     };
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <CreateBase {...defaultProps}>
           <Child />
         </CreateBase>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     await waitFor(() => {
@@ -68,11 +68,11 @@ describe('CreateBase', () => {
       return <button aria-label="save" onClick={handleClick} />;
     };
     const { getByLabelText } = render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <CreateBase {...defaultProps} mutationOptions={{ onSuccess }}>
           <Child />
         </CreateBase>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     getByLabelText('save').click();
@@ -111,11 +111,11 @@ describe('CreateBase', () => {
       return <button aria-label="save" onClick={handleClick} />;
     };
     const { getByLabelText } = render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <CreateBase {...defaultProps} mutationOptions={{ onSuccess }}>
           <Child />
         </CreateBase>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     getByLabelText('save').click();
@@ -152,11 +152,11 @@ describe('CreateBase', () => {
       return <button aria-label="save" onClick={handleClick} />;
     };
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <CreateBase {...defaultProps} mutationOptions={{ onError }}>
           <Child />
         </CreateBase>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     screen.getByLabelText('save').click();
@@ -192,11 +192,11 @@ describe('CreateBase', () => {
       return <button aria-label="save" onClick={handleClick} />;
     };
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <CreateBase {...defaultProps} mutationOptions={{ onError }}>
           <Child />
         </CreateBase>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     screen.getByLabelText('save').click();
@@ -231,11 +231,11 @@ describe('CreateBase', () => {
       return <button aria-label="save" onClick={handleClick} />;
     };
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <CreateBase {...defaultProps} transform={transform}>
           <Child />
         </CreateBase>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     screen.getByLabelText('save').click();
@@ -274,11 +274,11 @@ describe('CreateBase', () => {
       return <button aria-label="save" onClick={handleClick} />;
     };
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <CreateBase {...defaultProps} transform={transform}>
           <Child />
         </CreateBase>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     screen.getByLabelText('save').click();

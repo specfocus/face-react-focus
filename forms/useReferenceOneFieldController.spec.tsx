@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import expect from 'expect';
 import { testDataProvider } from '@specfocus/view-focus.data/operations/testDataProvider';
-import { CoreAdminContext } from '../core';
+import { BaseRootContext } from '../core';
 import { useReferenceOneFieldController } from './useReferenceOneFieldController';
 
 const ReferenceOneFieldController = props => {
@@ -25,7 +25,7 @@ describe('useReferenceOneFieldController', () => {
     });
 
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <ReferenceOneFieldController
           record={{ id: 123 }}
           source="id"
@@ -34,7 +34,7 @@ describe('useReferenceOneFieldController', () => {
         >
           {props => <ComponentToTest {...props} />}
         </ReferenceOneFieldController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     expect(screen.queryByText('isLoading: true')).not.toBeNull();
@@ -56,7 +56,7 @@ describe('useReferenceOneFieldController', () => {
     });
 
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <ReferenceOneFieldController
           record={{ id: 123 }}
           source="id"
@@ -65,7 +65,7 @@ describe('useReferenceOneFieldController', () => {
         >
           {props => <ComponentToTest {...props} />}
         </ReferenceOneFieldController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     expect(screen.queryByText('isLoading: true')).not.toBeNull();
@@ -82,7 +82,7 @@ describe('useReferenceOneFieldController', () => {
     });
 
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <ReferenceOneFieldController
           resource="authors"
           source="id"
@@ -92,7 +92,7 @@ describe('useReferenceOneFieldController', () => {
         >
           {() => 'null'}
         </ReferenceOneFieldController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     await waitFor(() => {
@@ -117,7 +117,7 @@ describe('useReferenceOneFieldController', () => {
     });
 
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <ReferenceOneFieldController
           resource="authors"
           source="id"
@@ -127,7 +127,7 @@ describe('useReferenceOneFieldController', () => {
         >
           {children}
         </ReferenceOneFieldController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await waitFor(() => {
       expect(children).toHaveBeenCalledWith(
@@ -146,7 +146,7 @@ describe('useReferenceOneFieldController', () => {
     });
 
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <ReferenceOneFieldController
           resource="authors"
           source="uniqueName"
@@ -160,7 +160,7 @@ describe('useReferenceOneFieldController', () => {
         >
           {() => 'null'}
         </ReferenceOneFieldController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     await waitFor(() => {
@@ -184,7 +184,7 @@ describe('useReferenceOneFieldController', () => {
         .mockResolvedValue({ data: [], total: 0 }),
     });
     const ControllerWrapper = ({ record }) => (
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <ReferenceOneFieldController
           resource="authors"
           source="id"
@@ -194,7 +194,7 @@ describe('useReferenceOneFieldController', () => {
         >
           {() => 'null'}
         </ReferenceOneFieldController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     const { rerender } = render(

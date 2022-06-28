@@ -19,7 +19,7 @@ import {
   getListControllerProps,
   sanitizeListRestProps,
 } from './useListController';
-import { CoreAdminContext } from '../core';
+import { BaseRootContext } from '../core';
 
 describe('useListController', () => {
   const defaultProps = {
@@ -36,11 +36,11 @@ describe('useListController', () => {
     const onError = jest.fn();
     const dataProvider = testDataProvider({ getList });
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <ListController resource="posts" queryOptions={{ onError }}>
           {() => <div />}
         </ListController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await waitFor(() => {
       expect(getList).toHaveBeenCalled();
@@ -78,12 +78,12 @@ describe('useListController', () => {
       const storeSpy = jest.spyOn(store, 'setItem');
 
       render(
-        <CoreAdminContext
+        <BaseRootContext
           dataProvider={testDataProvider()}
           store={store}
         >
           <ListController {...props} />
-        </CoreAdminContext>
+        </BaseRootContext>
       );
       const searchInput = screen.getByLabelText('search');
 
@@ -118,13 +118,13 @@ describe('useListController', () => {
       const store = memoryStore();
       const storeSpy = jest.spyOn(store, 'setItem');
       render(
-        <CoreAdminContext
+        <BaseRootContext
           dataProvider={testDataProvider()}
           history={history}
           store={store}
         >
           <ListController {...props} />
-        </CoreAdminContext>
+        </BaseRootContext>
       );
       expect(storeSpy).toHaveBeenCalledTimes(1);
 
@@ -164,9 +164,9 @@ describe('useListController', () => {
       });
 
       const { rerender } = render(
-        <CoreAdminContext dataProvider={dataProvider} history={history}>
+        <BaseRootContext dataProvider={dataProvider} history={history}>
           <ListController {...props} filter={{ foo: 1 }} />
-        </CoreAdminContext>
+        </BaseRootContext>
       );
 
       // Check that the permanent filter was used in the query
@@ -186,9 +186,9 @@ describe('useListController', () => {
       );
 
       rerender(
-        <CoreAdminContext dataProvider={dataProvider} history={history}>
+        <BaseRootContext dataProvider={dataProvider} history={history}>
           <ListController {...props} filter={{ foo: 2 }} />
-        </CoreAdminContext>
+        </BaseRootContext>
       );
 
       // Check that the permanent filter was used in the query
@@ -238,9 +238,9 @@ describe('useListController', () => {
       };
 
       render(
-        <CoreAdminContext>
+        <BaseRootContext>
           <ListController {...props} />
-        </CoreAdminContext>
+        </BaseRootContext>
       );
 
       fireEvent.click(screen.getByLabelText('Show filter 1'));
@@ -260,7 +260,7 @@ describe('useListController', () => {
 
     it('should support to sync calls', async () => {
       render(
-        <CoreAdminContext>
+        <BaseRootContext>
           <ListController {...defaultProps}>
             {({ displayedFilters, showFilter }) => (
               <>
@@ -279,7 +279,7 @@ describe('useListController', () => {
               </>
             )}
           </ListController>
-        </CoreAdminContext>
+        </BaseRootContext>
       );
 
       fireEvent.click(screen.getByLabelText('Show filters'));
@@ -305,9 +305,9 @@ describe('useListController', () => {
         children,
       };
       render(
-        <CoreAdminContext dataProvider={dataProvider}>
+        <BaseRootContext dataProvider={dataProvider}>
           <ListController {...props} />
-        </CoreAdminContext>
+        </BaseRootContext>
       );
       await waitFor(() => {
         expect(children).toHaveBeenCalledWith(
@@ -362,9 +362,9 @@ describe('useListController', () => {
         children,
       };
       render(
-        <CoreAdminContext dataProvider={dataProvider}>
+        <BaseRootContext dataProvider={dataProvider}>
           <ListController {...props} />
-        </CoreAdminContext>
+        </BaseRootContext>
       );
       await waitFor(() => {
         expect(children).toHaveBeenCalledWith(

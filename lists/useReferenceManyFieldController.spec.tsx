@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import expect from 'expect';
-import { CoreAdminContext } from '../core';
+import { BaseRootContext } from '../core';
 import { testDataProvider } from '@specfocus/view-focus.data/operations/testDataProvider';
 import { useReferenceManyFieldController } from './useReferenceManyFieldController';
 
@@ -24,7 +24,7 @@ describe('useReferenceManyFieldController', () => {
     });
 
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <ReferenceManyFieldController
           resource="foo"
           source="items"
@@ -33,7 +33,7 @@ describe('useReferenceManyFieldController', () => {
         >
           {props => <ComponentToTest {...props} />}
         </ReferenceManyFieldController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     expect(screen.queryByText('isLoading: true')).not.toBeNull();
@@ -58,7 +58,7 @@ describe('useReferenceManyFieldController', () => {
     });
 
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <ReferenceManyFieldController
           resource="foo"
           source="items"
@@ -67,7 +67,7 @@ describe('useReferenceManyFieldController', () => {
         >
           {props => <ComponentToTest {...props} />}
         </ReferenceManyFieldController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     expect(screen.queryByText('isLoading: true')).not.toBeNull();
@@ -84,7 +84,7 @@ describe('useReferenceManyFieldController', () => {
     });
 
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <ReferenceManyFieldController
           resource="authors"
           source="id"
@@ -94,7 +94,7 @@ describe('useReferenceManyFieldController', () => {
         >
           {() => 'null'}
         </ReferenceManyFieldController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     await waitFor(() => {
@@ -125,7 +125,7 @@ describe('useReferenceManyFieldController', () => {
     });
 
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <ReferenceManyFieldController
           resource="authors"
           source="id"
@@ -135,7 +135,7 @@ describe('useReferenceManyFieldController', () => {
         >
           {children}
         </ReferenceManyFieldController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await waitFor(() => {
       expect(children).toHaveBeenCalledWith(
@@ -169,7 +169,7 @@ describe('useReferenceManyFieldController', () => {
     });
 
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <ReferenceManyFieldController
           resource="authors"
           source="id"
@@ -179,7 +179,7 @@ describe('useReferenceManyFieldController', () => {
         >
           {children}
         </ReferenceManyFieldController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await waitFor(() => {
       expect(children).toHaveBeenCalledWith(
@@ -200,7 +200,7 @@ describe('useReferenceManyFieldController', () => {
     });
 
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <ReferenceManyFieldController
           resource="authors"
           source="uniqueName"
@@ -214,7 +214,7 @@ describe('useReferenceManyFieldController', () => {
         >
           {() => 'null'}
         </ReferenceManyFieldController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     await waitFor(() => {
@@ -238,7 +238,7 @@ describe('useReferenceManyFieldController', () => {
         .mockResolvedValue({ data: [], total: 0 }),
     });
     const ControllerWrapper = props => (
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <ReferenceManyFieldController
           resource="authors"
           source="id"
@@ -249,7 +249,7 @@ describe('useReferenceManyFieldController', () => {
         >
           {() => 'null'}
         </ReferenceManyFieldController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     const { rerender } = render(<ControllerWrapper />);

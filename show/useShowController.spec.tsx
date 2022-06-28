@@ -5,7 +5,7 @@ import { Route, Routes } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 
 import { ShowController } from './ShowController';
-import { CoreAdminContext } from '../core';
+import { BaseRootContext } from '../core';
 import { DataProvider } from '../types';
 
 describe('useShowController', () => {
@@ -23,11 +23,11 @@ describe('useShowController', () => {
       );
     const dataProvider = ({ getOne } as unknown) as DataProvider;
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <ShowController {...defaultProps}>
           {({ record }) => <div>{record && record.title}</div>}
         </ShowController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await waitFor(() => {
       expect(getOne).toHaveBeenCalled();
@@ -43,7 +43,7 @@ describe('useShowController', () => {
       );
     const dataProvider = ({ getOne } as unknown) as DataProvider;
     render(
-      <CoreAdminContext
+      <BaseRootContext
         dataProvider={dataProvider}
         history={createMemoryHistory({
           initialEntries: ['/posts/test%3F'],
@@ -61,7 +61,7 @@ describe('useShowController', () => {
             }
           />
         </Routes>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await waitFor(() => {
       expect(getOne).toHaveBeenCalledWith('posts', { id: 'test?' });
@@ -79,7 +79,7 @@ describe('useShowController', () => {
       );
     const dataProvider = ({ getOne } as unknown) as DataProvider;
     render(
-      <CoreAdminContext
+      <BaseRootContext
         dataProvider={dataProvider}
         history={createMemoryHistory({
           initialEntries: ['/posts/test%3F'],
@@ -97,7 +97,7 @@ describe('useShowController', () => {
             }
           />
         </Routes>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await waitFor(() => {
       expect(getOne).toHaveBeenCalledWith('posts', { id: 0 });
@@ -115,7 +115,7 @@ describe('useShowController', () => {
     const onError = jest.fn();
     const dataProvider = ({ getOne } as unknown) as DataProvider;
     render(
-      <CoreAdminContext
+      <BaseRootContext
         dataProvider={dataProvider}
         history={createMemoryHistory({
           initialEntries: ['/posts/1'],
@@ -134,7 +134,7 @@ describe('useShowController', () => {
             }
           />
         </Routes>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await waitFor(() => {
       expect(getOne).toHaveBeenCalled();

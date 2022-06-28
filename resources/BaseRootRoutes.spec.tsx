@@ -1,19 +1,19 @@
+import { testDataProvider } from '@specfocus/view-focus.data/providers/testDataProvider';
 import { Route } from '@specfocus/view-focus.navigation/routes/Route';
 import { render, screen, waitFor } from '@testing-library/react';
 import expect from 'expect';
 import { createMemoryHistory } from 'history';
-import { testDataProvider } from '@specfocus/view-focus.data/providers/testDataProvider';
+import { CustomRoutes } from '../routes/CustomRoutes';
 import { CoreLayoutProps } from '../types';
-import { CoreAdminContext } from './CoreAdminContext';
-import { CoreAdminRoutes } from './CoreAdminRoutes';
-import { CustomRoutes } from './CustomRoutes';
+import { BaseRootContext } from './BaseRootContext';
+import { BaseRootRoutes } from './BaseRootRoutes';
 import { Resource } from './Resource';
 
 const Layout = ({ children }: CoreLayoutProps) => <div>Layout {children}</div>;
 const CatchAll = () => <div />;
 const Loading = () => <>Loading</>;
 
-describe('<CoreAdminRoutes>', () => {
+describe('<BaseRootRoutes>', () => {
   const defaultProps = {
     customRoutes: [],
   };
@@ -22,11 +22,11 @@ describe('<CoreAdminRoutes>', () => {
     it('should render resources and custom routes with and without layout', () => {
       const history = createMemoryHistory();
       render(
-        <CoreAdminContext
+        <BaseRootContext
           dataProvider={testDataProvider()}
           history={history}
         >
-          <CoreAdminRoutes
+          <BaseRootRoutes
             layout={Layout}
             catchAll={CatchAll}
             loading={Loading}
@@ -45,8 +45,8 @@ describe('<CoreAdminRoutes>', () => {
               name="comments"
               list={() => <span>CommentList</span>}
             />
-          </CoreAdminRoutes>
-        </CoreAdminContext>
+          </BaseRootRoutes>
+        </BaseRootContext>
       );
       expect(screen.getByText('Layout')).not.toBeNull();
       history.push('/posts');
@@ -66,11 +66,11 @@ describe('<CoreAdminRoutes>', () => {
     it('should render resources and custom routes with and without layout', async () => {
       const history = createMemoryHistory();
       render(
-        <CoreAdminContext
+        <BaseRootContext
           dataProvider={testDataProvider()}
           history={history}
         >
-          <CoreAdminRoutes
+          <BaseRootRoutes
             layout={Layout}
             catchAll={CatchAll}
             loading={Loading}
@@ -96,8 +96,8 @@ describe('<CoreAdminRoutes>', () => {
                 />
               </>
             )}
-          </CoreAdminRoutes>
-        </CoreAdminContext>
+          </BaseRootRoutes>
+        </BaseRootContext>
       );
       history.push('/foo');
       expect(screen.queryByText('Layout')).toBeNull();
@@ -116,11 +116,11 @@ describe('<CoreAdminRoutes>', () => {
     it('should render resources and custom routes with and without layout even without an authProvider', async () => {
       const history = createMemoryHistory();
       render(
-        <CoreAdminContext
+        <BaseRootContext
           dataProvider={testDataProvider()}
           history={history}
         >
-          <CoreAdminRoutes
+          <BaseRootRoutes
             layout={Layout}
             catchAll={CatchAll}
             loading={Loading}
@@ -146,8 +146,8 @@ describe('<CoreAdminRoutes>', () => {
                 />
               </>
             )}
-          </CoreAdminRoutes>
-        </CoreAdminContext>
+          </BaseRootRoutes>
+        </BaseRootContext>
       );
       history.push('/foo');
       expect(screen.queryByText('Layout')).toBeNull();
@@ -176,12 +176,12 @@ describe('<CoreAdminRoutes>', () => {
 
       const history = createMemoryHistory();
       render(
-        <CoreAdminContext
+        <BaseRootContext
           authProvider={authProvider}
           dataProvider={testDataProvider()}
           history={history}
         >
-          <CoreAdminRoutes
+          <BaseRootRoutes
             layout={Layout}
             loading={Loading}
             catchAll={CatchAll}
@@ -190,8 +190,8 @@ describe('<CoreAdminRoutes>', () => {
               <Route path="/foo" element={<Custom />} />
             </CustomRoutes>
             {() => new Promise(() => null)}
-          </CoreAdminRoutes>
-        </CoreAdminContext>
+          </BaseRootRoutes>
+        </BaseRootContext>
       );
       // Timeout needed because we wait for a second before displaying the loading screen
       jest.advanceTimersByTime(1010);
@@ -216,20 +216,20 @@ describe('<CoreAdminRoutes>', () => {
 
       const history = createMemoryHistory();
       render(
-        <CoreAdminContext
+        <BaseRootContext
           authProvider={authProvider}
           dataProvider={testDataProvider()}
           history={history}
         >
-          <CoreAdminRoutes
+          <BaseRootRoutes
             {...defaultProps}
             layout={Layout}
             loading={Loading}
             catchAll={CatchAll}
           >
             <Resource name="posts" list={() => <i>PostList</i>} />
-          </CoreAdminRoutes>
-        </CoreAdminContext>
+          </BaseRootRoutes>
+        </BaseRootContext>
       );
       expect(screen.queryByText('PostList')).not.toBeNull();
       expect(screen.queryByText('Loading')).toBeNull();
@@ -247,20 +247,20 @@ describe('<CoreAdminRoutes>', () => {
 
       const history = createMemoryHistory();
       render(
-        <CoreAdminContext
+        <BaseRootContext
           authProvider={authProvider}
           dataProvider={testDataProvider()}
           history={history}
         >
-          <CoreAdminRoutes
+          <BaseRootRoutes
             layout={Layout}
             loading={Loading}
             catchAll={CatchAll}
             requireAuth
           >
             <Resource name="posts" list={() => <i>PostList</i>} />
-          </CoreAdminRoutes>
-        </CoreAdminContext>
+          </BaseRootRoutes>
+        </BaseRootContext>
       );
       expect(screen.queryByText('PostList')).toBeNull();
       expect(screen.queryByText('Loading')).toBeNull();
@@ -282,20 +282,20 @@ describe('<CoreAdminRoutes>', () => {
 
       const history = createMemoryHistory();
       render(
-        <CoreAdminContext
+        <BaseRootContext
           authProvider={authProvider}
           dataProvider={testDataProvider()}
           history={history}
         >
-          <CoreAdminRoutes
+          <BaseRootRoutes
             layout={Layout}
             loading={Loading}
             catchAll={CatchAll}
             requireAuth
           >
             <Resource name="posts" list={() => <i>PostList</i>} />
-          </CoreAdminRoutes>
-        </CoreAdminContext>
+          </BaseRootRoutes>
+        </BaseRootContext>
       );
       expect(screen.queryByText('PostList')).toBeNull();
       expect(screen.queryByText('Loading')).toBeNull();
@@ -319,12 +319,12 @@ describe('<CoreAdminRoutes>', () => {
 
       const history = createMemoryHistory();
       render(
-        <CoreAdminContext
+        <BaseRootContext
           authProvider={authProvider}
           dataProvider={testDataProvider()}
           history={history}
         >
-          <CoreAdminRoutes
+          <BaseRootRoutes
             layout={Layout}
             loading={Loading}
             catchAll={CatchAll}
@@ -334,8 +334,8 @@ describe('<CoreAdminRoutes>', () => {
               <Route path="/login" element={<i>Login</i>} />
             </CustomRoutes>
             <Resource name="posts" list={() => <i>PostList</i>} />
-          </CoreAdminRoutes>
-        </CoreAdminContext>
+          </BaseRootRoutes>
+        </BaseRootContext>
       );
       expect(screen.queryByText('PostList')).toBeNull();
       expect(screen.queryByText('Loading')).toBeNull();
@@ -355,12 +355,12 @@ describe('<CoreAdminRoutes>', () => {
 
       const history = createMemoryHistory();
       render(
-        <CoreAdminContext
+        <BaseRootContext
           authProvider={authProvider}
           dataProvider={testDataProvider()}
           history={history}
         >
-          <CoreAdminRoutes
+          <BaseRootRoutes
             layout={Layout}
             loading={Loading}
             catchAll={CatchAll}
@@ -370,8 +370,8 @@ describe('<CoreAdminRoutes>', () => {
               <Route path="/login" element={<i>Login</i>} />
             </CustomRoutes>
             <Resource name="posts" list={() => <i>PostList</i>} />
-          </CoreAdminRoutes>
-        </CoreAdminContext>
+          </BaseRootRoutes>
+        </BaseRootContext>
       );
       expect(screen.queryByText('PostList')).not.toBeNull();
       expect(screen.queryByText('Loading')).toBeNull();

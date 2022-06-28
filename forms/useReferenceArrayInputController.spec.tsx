@@ -4,7 +4,7 @@ import expect from 'expect';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 
 import { useReferenceArrayInputController } from './useReferenceArrayInputController';
-import { CoreAdminContext } from '../core';
+import { BaseRootContext } from '../core';
 import { testDataProvider } from '@specfocus/view-focus.data/providers/testDataProvider';
 import { Form } from '../form';
 import { SORT_ASC } from '../list/queryReducer';
@@ -34,7 +34,7 @@ describe('useReferenceArrayInputController', () => {
         <div>{isLoading.toString()}</div>
       ));
       render(
-        <CoreAdminContext dataProvider={testDataProvider()}>
+        <BaseRootContext dataProvider={testDataProvider()}>
           <Form
             defaultValues={{ tag_ids: [1, 2] }}
             onSubmit={jest.fn()}
@@ -43,7 +43,7 @@ describe('useReferenceArrayInputController', () => {
               {children}
             </ReferenceArrayInputController>
           </Form>
-        </CoreAdminContext>
+        </BaseRootContext>
       );
       expect(screen.queryByText('true')).not.toBeNull();
     });
@@ -57,7 +57,7 @@ describe('useReferenceArrayInputController', () => {
         getList: jest.fn().mockResolvedValue({ data: [], total: 0 }),
       });
       render(
-        <CoreAdminContext dataProvider={dataProvider}>
+        <BaseRootContext dataProvider={dataProvider}>
           <Form
             onSubmit={jest.fn()}
             defaultValues={{ tag_ids: [1, 2] }}
@@ -66,7 +66,7 @@ describe('useReferenceArrayInputController', () => {
               {children}
             </ReferenceArrayInputController>
           </Form>
-        </CoreAdminContext>
+        </BaseRootContext>
       );
       await waitFor(() => {
         expect(dataProvider.getList).toHaveBeenCalledTimes(1);
@@ -85,7 +85,7 @@ describe('useReferenceArrayInputController', () => {
         <div>{error?.message}</div>
       ));
       render(
-        <CoreAdminContext
+        <BaseRootContext
           dataProvider={testDataProvider({
             getList: () => Promise.reject(new Error('boom')),
             getMany: () => Promise.resolve({ data: [] }),
@@ -96,7 +96,7 @@ describe('useReferenceArrayInputController', () => {
               {children}
             </ReferenceArrayInputController>
           </Form>
-        </CoreAdminContext>
+        </BaseRootContext>
       );
 
       await waitFor(() => {
@@ -110,7 +110,7 @@ describe('useReferenceArrayInputController', () => {
         <div>{error?.message}</div>
       ));
       render(
-        <CoreAdminContext
+        <BaseRootContext
           dataProvider={testDataProvider({
             getList: () => Promise.reject(new Error('boom')),
             getMany: () => Promise.resolve({ data: [] }),
@@ -124,7 +124,7 @@ describe('useReferenceArrayInputController', () => {
               {children}
             </ReferenceArrayInputController>
           </Form>
-        </CoreAdminContext>
+        </BaseRootContext>
       );
       await waitFor(() => {
         expect(screen.queryByText('boom')).not.toBeNull();
@@ -136,7 +136,7 @@ describe('useReferenceArrayInputController', () => {
         <div>{error?.message}</div>
       ));
       render(
-        <CoreAdminContext
+        <BaseRootContext
           dataProvider={testDataProvider({
             getList: () => Promise.reject(new Error('boom')),
             getMany: () =>
@@ -154,7 +154,7 @@ describe('useReferenceArrayInputController', () => {
               {children}
             </ReferenceArrayInputController>
           </Form>
-        </CoreAdminContext>
+        </BaseRootContext>
       );
       await waitFor(
         () => new Promise(resolve => setTimeout(resolve, 100))
@@ -172,13 +172,13 @@ describe('useReferenceArrayInputController', () => {
         .mockResolvedValue(Promise.resolve({ data: [], total: 0 })),
     });
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <Form onSubmit={jest.fn()}>
           <ReferenceArrayInputController {...defaultProps}>
             {children}
           </ReferenceArrayInputController>
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     expect(dataProvider.getList).toHaveBeenCalledWith('tags', {
       pagination: {
@@ -202,7 +202,7 @@ describe('useReferenceArrayInputController', () => {
         .mockResolvedValue(Promise.resolve({ data: [], total: 0 })),
     });
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <Form onSubmit={jest.fn()}>
           <ReferenceArrayInputController
             {...defaultProps}
@@ -214,7 +214,7 @@ describe('useReferenceArrayInputController', () => {
             {children}
           </ReferenceArrayInputController>
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     expect(dataProvider.getList).toHaveBeenCalledWith('tags', {
       pagination: {
@@ -243,13 +243,13 @@ describe('useReferenceArrayInputController', () => {
         .mockResolvedValue(Promise.resolve({ data: [], total: 0 })),
     });
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <Form onSubmit={jest.fn()}>
           <ReferenceArrayInputController {...defaultProps}>
             {children}
           </ReferenceArrayInputController>
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     fireEvent.click(screen.getByLabelText('Filter'));
@@ -279,13 +279,13 @@ describe('useReferenceArrayInputController', () => {
         ),
     });
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <Form onSubmit={jest.fn()} defaultValues={{ tag_ids: [5, 6] }}>
           <ReferenceArrayInputController {...defaultProps}>
             {children}
           </ReferenceArrayInputController>
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await waitFor(() => {
       expect(dataProvider.getMany).toHaveBeenCalledWith('tags', {
@@ -312,13 +312,13 @@ describe('useReferenceArrayInputController', () => {
         .mockResolvedValue(Promise.resolve({ data: [{ id: 5 }] })),
     });
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <Form onSubmit={jest.fn()} defaultValues={{ tag_ids: [5] }}>
           <ReferenceArrayInputController {...defaultProps}>
             {children}
           </ReferenceArrayInputController>
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     fireEvent.click(screen.getByLabelText('Filter'));
@@ -346,17 +346,17 @@ describe('useReferenceArrayInputController', () => {
         .mockResolvedValue(Promise.resolve({ data: [{ id: 5 }] })),
     });
     const { rerender } = render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <Form onSubmit={onSubmit} record={record}>
           <ReferenceArrayInputController {...defaultProps}>
             {children}
           </ReferenceArrayInputController>
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     rerender(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <Form onSubmit={onSubmit} record={record}>
           <ReferenceArrayInputController
             {...defaultProps}
@@ -365,7 +365,7 @@ describe('useReferenceArrayInputController', () => {
             {children}
           </ReferenceArrayInputController>
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     await waitFor(() => {
@@ -376,7 +376,7 @@ describe('useReferenceArrayInputController', () => {
     });
 
     rerender(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <Form record={record} onSubmit={onSubmit}>
           <ReferenceArrayInputController
             {...defaultProps}
@@ -386,7 +386,7 @@ describe('useReferenceArrayInputController', () => {
             {children}
           </ReferenceArrayInputController>
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     await waitFor(() => {
@@ -397,7 +397,7 @@ describe('useReferenceArrayInputController', () => {
     });
 
     rerender(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <Form record={record} onSubmit={onSubmit}>
           <ReferenceArrayInputController
             {...defaultProps}
@@ -408,7 +408,7 @@ describe('useReferenceArrayInputController', () => {
             {children}
           </ReferenceArrayInputController>
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     await waitFor(() => {
@@ -429,13 +429,13 @@ describe('useReferenceArrayInputController', () => {
       getMany: jest.fn().mockResolvedValue({ data: [] }),
     });
     const { rerender } = render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <Form record={{ tag_ids: [5] }} onSubmit={jest.fn()}>
           <ReferenceArrayInputController {...defaultProps}>
             {children}
           </ReferenceArrayInputController>
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await waitFor(() => {
       expect(dataProvider.getMany).toHaveBeenCalledWith('tags', {
@@ -443,13 +443,13 @@ describe('useReferenceArrayInputController', () => {
       });
     });
     rerender(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <Form record={{ tag_ids: [5, 6] }} onSubmit={jest.fn()}>
           <ReferenceArrayInputController {...defaultProps}>
             {children}
           </ReferenceArrayInputController>
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await waitFor(() => {
       expect(dataProvider.getMany).toHaveBeenCalledWith('tags', {
@@ -493,7 +493,7 @@ describe('useReferenceArrayInputController', () => {
         .mockResolvedValue(Promise.resolve({ data: [], total: 0 })),
     });
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <Form onSubmit={jest.fn()}>
           <ReferenceArrayInputController
             {...defaultProps}
@@ -502,7 +502,7 @@ describe('useReferenceArrayInputController', () => {
             {children}
           </ReferenceArrayInputController>
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     fireEvent.click(screen.getByLabelText('setPage'));
@@ -557,7 +557,7 @@ describe('useReferenceArrayInputController', () => {
   it('should call its children with the correct resource', () => {
     const children = jest.fn(() => null);
     render(
-      <CoreAdminContext dataProvider={testDataProvider()}>
+      <BaseRootContext dataProvider={testDataProvider()}>
         <Form onSubmit={jest.fn()}>
           <ReferenceArrayInputController
             {...defaultProps}
@@ -566,7 +566,7 @@ describe('useReferenceArrayInputController', () => {
             {children}
           </ReferenceArrayInputController>
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     expect(children).toHaveBeenCalledWith(
       expect.objectContaining({ resource: 'tags' })
@@ -585,7 +585,7 @@ describe('useReferenceArrayInputController', () => {
           .mockResolvedValue(Promise.resolve({ data: [], total: 0 })),
       });
       render(
-        <CoreAdminContext dataProvider={dataProvider}>
+        <BaseRootContext dataProvider={dataProvider}>
           <Form onSubmit={jest.fn()}>
             <ReferenceArrayInputController
               {...defaultProps}
@@ -594,7 +594,7 @@ describe('useReferenceArrayInputController', () => {
               {children}
             </ReferenceArrayInputController>
           </Form>
-        </CoreAdminContext>
+        </BaseRootContext>
       );
 
       // not call on start
@@ -636,7 +636,7 @@ describe('useReferenceArrayInputController', () => {
           .mockResolvedValue({ data: [{ id: 5 }, { id: 6 }] }),
       });
       render(
-        <CoreAdminContext dataProvider={dataProvider}>
+        <BaseRootContext dataProvider={dataProvider}>
           <Form onSubmit={jest.fn()} record={{ tag_ids: [5, 6] }}>
             <ReferenceArrayInputController
               {...defaultProps}
@@ -645,7 +645,7 @@ describe('useReferenceArrayInputController', () => {
               {children}
             </ReferenceArrayInputController>
           </Form>
-        </CoreAdminContext>
+        </BaseRootContext>
       );
       await waitFor(() => {
         expect(dataProvider.getMany).toHaveBeenCalledWith('tags', {
@@ -661,7 +661,7 @@ describe('useReferenceArrayInputController', () => {
         return false;
       });
       render(
-        <CoreAdminContext dataProvider={testDataProvider()}>
+        <BaseRootContext dataProvider={testDataProvider()}>
           <Form onSubmit={jest.fn()}>
             <ReferenceArrayInputController
               {...defaultProps}
@@ -670,7 +670,7 @@ describe('useReferenceArrayInputController', () => {
               {children}
             </ReferenceArrayInputController>
           </Form>
-        </CoreAdminContext>
+        </BaseRootContext>
       );
 
       await waitFor(() => {

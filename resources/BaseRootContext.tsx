@@ -6,20 +6,20 @@ import {
   defaultDataProvider
 } from '@specfocus/view-focus.data/providers';
 import { DataProvider, LegacyDataProvider } from '@specfocus/view-focus.data/providers/DataProvider';
-import { TranslationContextProvider, I18nProvider } from '@specfocus/view-focus.i18n/translations/TranslationContextProvider';
+import { I18nProvider, TranslationContextProvider } from '@specfocus/view-focus.i18n/translations/TranslationContextProvider';
 import { AdminRouter } from '@specfocus/view-focus.navigation/routes';
 import { NotificationContextProvider } from '@specfocus/view-focus.notification/providers';
 import { memoryStore, Store, StoreContextProvider } from '@specfocus/view-focus.states/states';
 import { History } from 'history';
 import { useMemo } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import type { AdminChildren, DashboardComponent } from '../types';
+import type { DashboardComponent, ResourceChildren } from '../types';
 import { ResourceDefinitionContextProvider } from './ResourceDefinitionContext';
 
-export interface CoreAdminContextProps {
+export interface BaseRootContextProps {
   authProvider?: AuthProvider | LegacyAuthProvider;
   basename?: string;
-  children?: AdminChildren;
+  children?: ResourceChildren;
   dashboard?: DashboardComponent;
   dataProvider?: DataProvider | LegacyDataProvider;
   store?: Store;
@@ -32,7 +32,7 @@ export interface CoreAdminContextProps {
   theme?: object;
 }
 
-export const CoreAdminContext = (props: CoreAdminContextProps) => {
+export const BaseRootContext = (props: BaseRootContextProps) => {
   const {
     authProvider,
     basename,
@@ -90,7 +90,7 @@ React-admin requires a valid dataProvider function to work.`);
   );
 };
 
-CoreAdminContext.defaultProps = {
+BaseRootContext.defaultProps = {
   dataProvider: defaultDataProvider,
   store: memoryStore(),
 };

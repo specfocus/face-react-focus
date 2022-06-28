@@ -3,7 +3,7 @@ import expect from 'expect';
 import { render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 
-import { CoreAdminContext } from './CoreAdminContext';
+import { BaseRootContext } from './BaseRootContext';
 import { Resource } from './Resource';
 
 const PostList = () => <div>PostList</div>;
@@ -26,9 +26,9 @@ describe('<Resource>', () => {
   it('renders resource routes by default', () => {
     const history = createMemoryHistory();
     render(
-      <CoreAdminContext history={history}>
+      <BaseRootContext history={history}>
         <Resource {...resource} />
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     // Resource does not declare a route matching its name, it only renders its child routes
     // so we don't need to navigate to a path matching its name

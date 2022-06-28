@@ -4,7 +4,7 @@ import { useFormContext } from '@specfocus/view-focus.forms/forms/useFormContext
 import { required } from '@specfocus/view-focus.forms/forms/validate';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { FunctionComponent, ReactElement, useEffect } from 'react';
-import { CoreAdminContext } from '../core';
+import { BaseRootContext } from '../core';
 import { InputProps, useInput } from './useInput';
 
 const Input: FunctionComponent<
@@ -20,7 +20,7 @@ describe('useInput', () => {
   it('returns the props needed for an input', () => {
     let inputProps;
     render(
-      <CoreAdminContext dataProvider={testDataProvider()}>
+      <BaseRootContext dataProvider={testDataProvider()}>
         <Form onSubmit={jest.fn()}>
           <Input
             defaultValue="A title"
@@ -34,7 +34,7 @@ describe('useInput', () => {
             }}
           </Input>
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     expect(inputProps.id).toEqual('title');
@@ -48,7 +48,7 @@ describe('useInput', () => {
   it('allows to override the input id', () => {
     let inputProps;
     render(
-      <CoreAdminContext dataProvider={testDataProvider()}>
+      <BaseRootContext dataProvider={testDataProvider()}>
         <Form onSubmit={jest.fn()}>
           <Input id="my-title" source="title" resource="posts">
             {props => {
@@ -57,7 +57,7 @@ describe('useInput', () => {
             }}
           </Input>
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     expect(inputProps.id).toEqual('my-title');
@@ -71,7 +71,7 @@ describe('useInput', () => {
     const handleChange = jest.fn();
 
     render(
-      <CoreAdminContext dataProvider={testDataProvider()}>
+      <BaseRootContext dataProvider={testDataProvider()}>
         <Form onSubmit={jest.fn()}>
           <Input
             source="title"
@@ -92,7 +92,7 @@ describe('useInput', () => {
             }}
           </Input>
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     const input = screen.getByLabelText('Title');
 
@@ -108,7 +108,7 @@ describe('useInput', () => {
   it('applies the defaultValue when input does not have a value', () => {
     const onSubmit = jest.fn();
     render(
-      <CoreAdminContext dataProvider={testDataProvider()}>
+      <BaseRootContext dataProvider={testDataProvider()}>
         <Form onSubmit={onSubmit}>
           <Input source="title" resource="posts" defaultValue="foo">
             {({ id, field }) => {
@@ -123,14 +123,14 @@ describe('useInput', () => {
             }}
           </Input>
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     expect(screen.queryByDisplayValue('foo')).not.toBeNull();
   });
 
   it('does not apply the defaultValue when input has a value of 0', () => {
     render(
-      <CoreAdminContext dataProvider={testDataProvider()}>
+      <BaseRootContext dataProvider={testDataProvider()}>
         <Form onSubmit={jest.fn()} record={{ id: 1, views: 0 }}>
           <Input source="views" resource="posts" defaultValue={99}>
             {({ id, field }) => {
@@ -145,14 +145,14 @@ describe('useInput', () => {
             }}
           </Input>
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     expect(screen.queryByDisplayValue('99')).toBeNull();
   });
 
   it('does not apply the defaultValue when input has a value of 0', () => {
     render(
-      <CoreAdminContext dataProvider={testDataProvider()}>
+      <BaseRootContext dataProvider={testDataProvider()}>
         <Form onSubmit={jest.fn()} record={{ id: 1, views: 0 }}>
           <Input source="views" resource="posts" defaultValue={99}>
             {({ id, field }) => {
@@ -167,7 +167,7 @@ describe('useInput', () => {
             }}
           </Input>
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     expect(screen.queryByDisplayValue('99')).toBeNull();
   });
@@ -199,68 +199,68 @@ describe('useInput', () => {
 
   it('does not change the value if the field is of type checkbox and has no value', () => {
     render(
-      <CoreAdminContext dataProvider={testDataProvider()}>
+      <BaseRootContext dataProvider={testDataProvider()}>
         <Form onSubmit={jest.fn()} record={{ id: 1 }}>
           <BooleanInput source="is_published" />
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     expect(screen.queryByText('undefined')).not.toBeNull();
   });
 
   it('applies the defaultValue true when the field is of type checkbox and has no value', () => {
     render(
-      <CoreAdminContext dataProvider={testDataProvider()}>
+      <BaseRootContext dataProvider={testDataProvider()}>
         <Form onSubmit={jest.fn()} record={{ id: 1 }}>
           <BooleanInput source="is_published" defaultValue={true} />
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     expect(screen.queryByText('true')).not.toBeNull();
   });
 
   it('applies the defaultValue false when the field is of type checkbox and has no value', () => {
     render(
-      <CoreAdminContext dataProvider={testDataProvider()}>
+      <BaseRootContext dataProvider={testDataProvider()}>
         <Form onSubmit={jest.fn()} record={{ id: 1 }}>
           <BooleanInput source="is_published" defaultValue={false} />
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     expect(screen.queryByText('false')).not.toBeNull();
   });
 
   it('does not apply the defaultValue true when the field is of type checkbox and has a value', () => {
     render(
-      <CoreAdminContext dataProvider={testDataProvider()}>
+      <BaseRootContext dataProvider={testDataProvider()}>
         <Form
           record={{ id: 1, is_published: false }}
           onSubmit={jest.fn()}
         >
           <BooleanInput source="is_published" defaultValue={true} />
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     expect(screen.queryByText('false')).not.toBeNull();
   });
 
   it('does not apply the defaultValue false when the field is of type checkbox and has a value', () => {
     render(
-      <CoreAdminContext dataProvider={testDataProvider()}>
+      <BaseRootContext dataProvider={testDataProvider()}>
         <Form
           record={{ id: 1, is_published: true }}
           onSubmit={jest.fn()}
         >
           <BooleanInput source="is_published" defaultValue={false} />
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     expect(screen.queryByText('true')).not.toBeNull();
   });
 
   test('should apply the provided format function before passing the value to the real input', () => {
     render(
-      <CoreAdminContext dataProvider={testDataProvider()}>
+      <BaseRootContext dataProvider={testDataProvider()}>
         <Form onSubmit={jest.fn()}>
           <Input
             format={value => `${value} formatted`}
@@ -271,14 +271,14 @@ describe('useInput', () => {
             defaultValue="test"
           />
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     expect(screen.getByDisplayValue('test formatted')).not.toBeNull();
   });
 
   test('should apply the provided parse function before applying the value from the real input', () => {
     render(
-      <CoreAdminContext dataProvider={testDataProvider()}>
+      <BaseRootContext dataProvider={testDataProvider()}>
         <Form onSubmit={jest.fn()}>
           <Input
             defaultValue=""
@@ -293,7 +293,7 @@ describe('useInput', () => {
             }}
           />
         </Form>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     expect(screen.getByDisplayValue('1000')).not.toBeNull();
   });

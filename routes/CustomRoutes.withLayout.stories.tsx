@@ -1,35 +1,34 @@
 import { useAuthenticated, useLogin } from '@specfocus/view-focus.auth/providers';
 import { FakeBrowserDecorator } from '@specfocus/view-focus.navigation/storybook/FakeBrowser';
 import { Route } from 'react-router-dom';
-import { CoreAdmin } from '../resources/CoreAdmin';
+import { BaseRoot } from '../resources/BaseRoot';
 import { Resource } from '../resources/Resource';
 import { CustomRoutes } from './CustomRoutes';
 
 export default {
-  title: 'view-focus/CustomRoutes/Authenticated',
+  title: 'view-focus/CustomRoutes/WithLayout',
   decorators: [FakeBrowserDecorator],
   parameters: {
-    initialEntries: ['/authenticated'],
+    initialEntries: ['/custom'],
   },
 };
 
-export const AuthenticatedCustomRoute = (argsOrProps, context) => {
+export const WithLayoutCustomRoute = (argsOrProps, context) => {
   const history = context?.history || argsOrProps.history;
+
   return (
-    <CoreAdmin
+    <BaseRoot
       authProvider={authProvider}
       dataProvider={dataProvider as any}
       history={history}
       loginPage={Login}
+      layout={Layout}
     >
-      <CustomRoutes noLayout>
-        <Route
-          path="/authenticated"
-          element={<CustomAuthenticatedNoLayout />}
-        />
+      <CustomRoutes>
+        <Route path="/custom" element={<CustomWithLayout />} />
       </CustomRoutes>
       <Resource name="posts" list={PostList} />
-    </CoreAdmin>
+    </BaseRoot>
   );
 };
 
@@ -67,17 +66,24 @@ const Login = () => {
   );
 };
 
+const Layout = ({ children }) => (
+  <div>
+    <h1>Layout</h1>
+    {children}
+  </div>
+);
+
 const PostList = () => (
   <div>
     <h1>PostList page</h1>
   </div>
 );
 
-const CustomAuthenticatedNoLayout = () => {
+const CustomWithLayout = () => {
   useAuthenticated();
   return (
     <div>
-      <h1>Custom page without layout, requiring authentication</h1>
+      <h1>Custom page with layout, requiring authentication</h1>
     </div>
   );
 };

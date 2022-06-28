@@ -6,7 +6,7 @@ import { createMemoryHistory } from 'history';
 
 import { EditController } from './EditController';
 import { DataProvider } from '../types';
-import { CoreAdminContext } from '../core';
+import { BaseRootContext } from '../core';
 import { useNotificationContext } from '@specfocus/view-focus.notification/providers';
 import { SaveContextProvider } from '..';
 import undoableEventEmitter from '@specfocus/view-focus.data/operations/undoableEventEmitter';
@@ -27,11 +27,11 @@ describe('useEditController', () => {
       );
     const dataProvider = ({ getOne } as unknown) as DataProvider;
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <EditController {...defaultProps}>
           {({ record }) => <div>{record && record.title}</div>}
         </EditController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await waitFor(() => {
       expect(getOne).toHaveBeenCalled();
@@ -51,7 +51,7 @@ describe('useEditController', () => {
     });
 
     render(
-      <CoreAdminContext dataProvider={dataProvider} history={history}>
+      <BaseRootContext dataProvider={dataProvider} history={history}>
         <Routes>
           <Route
             path="/posts/:id"
@@ -64,7 +64,7 @@ describe('useEditController', () => {
             }
           />
         </Routes>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await waitFor(() => {
       expect(getOne).toHaveBeenCalledWith('posts', { id: 'test?' });
@@ -86,7 +86,7 @@ describe('useEditController', () => {
     });
 
     render(
-      <CoreAdminContext dataProvider={dataProvider} history={history}>
+      <BaseRootContext dataProvider={dataProvider} history={history}>
         <Routes>
           <Route
             path="/posts/:id"
@@ -99,7 +99,7 @@ describe('useEditController', () => {
             }
           />
         </Routes>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await waitFor(() => {
       expect(getOne).toHaveBeenCalledWith('posts', { id: 0 });
@@ -117,7 +117,7 @@ describe('useEditController', () => {
     const onError = jest.fn();
     const dataProvider = ({ getOne } as unknown) as DataProvider;
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <EditController
           {...defaultProps}
           resource="posts"
@@ -125,7 +125,7 @@ describe('useEditController', () => {
         >
           {() => <div />}
         </EditController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await waitFor(() => {
       expect(getOne).toHaveBeenCalled();
@@ -146,7 +146,7 @@ describe('useEditController', () => {
       update,
     } as unknown) as DataProvider;
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <EditController {...defaultProps} mutationMode="pessimistic">
           {({ record, save, saving }) => {
             return (
@@ -160,7 +160,7 @@ describe('useEditController', () => {
             );
           }}
         </EditController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
 
     await waitFor(() => {
@@ -190,7 +190,7 @@ describe('useEditController', () => {
       update,
     } as unknown) as DataProvider;
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <EditController {...defaultProps}>
           {({ save, record }) => {
             return (
@@ -204,7 +204,7 @@ describe('useEditController', () => {
             );
           }}
         </EditController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await waitFor(() => {
       screen.getByText('previous');
@@ -243,14 +243,14 @@ describe('useEditController', () => {
     } as unknown) as DataProvider;
     let saveCallback;
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <EditController {...defaultProps} mutationMode="pessimistic">
           {({ save, record }) => {
             saveCallback = save;
             return <>{JSON.stringify(record)}</>;
           }}
         </EditController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await new Promise(resolve => setTimeout(resolve, 10));
     screen.getByText('{"id":12}');
@@ -282,7 +282,7 @@ describe('useEditController', () => {
     };
 
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <Notification />
         <EditController {...defaultProps} mutationMode="pessimistic">
           {({ save }) => {
@@ -290,7 +290,7 @@ describe('useEditController', () => {
             return <div />;
           }}
         </EditController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await act(async () => saveCallback({ foo: 'bar' }));
     await waitFor(() =>
@@ -328,7 +328,7 @@ describe('useEditController', () => {
     };
 
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <Notification />
         <EditController
           {...defaultProps}
@@ -340,7 +340,7 @@ describe('useEditController', () => {
             return <div />;
           }}
         </EditController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await act(async () => saveCallback({ foo: 'bar' }));
     await waitFor(() => expect(onSuccess).toHaveBeenCalled());
@@ -366,7 +366,7 @@ describe('useEditController', () => {
     };
 
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <Notification />
         <EditController
           {...defaultProps}
@@ -378,7 +378,7 @@ describe('useEditController', () => {
             return <div />;
           }}
         </EditController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await act(async () => saveCallback({ foo: 'bar' }));
     await waitFor(() => expect(onSuccess).toHaveBeenCalled());
@@ -404,7 +404,7 @@ describe('useEditController', () => {
     };
 
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <Notification />
         <EditController
           {...defaultProps}
@@ -415,7 +415,7 @@ describe('useEditController', () => {
             return <div />;
           }}
         </EditController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await act(async () => saveCallback({ foo: 'bar' }));
     await waitFor(() => expect(onSuccess).toHaveBeenCalled());
@@ -442,7 +442,7 @@ describe('useEditController', () => {
     };
 
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <Notification />
         <EditController
           {...defaultProps}
@@ -454,7 +454,7 @@ describe('useEditController', () => {
             return <div />;
           }}
         </EditController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await act(async () =>
       saveCallback(
@@ -487,7 +487,7 @@ describe('useEditController', () => {
     };
 
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <Notification />
         <EditController {...defaultProps} mutationMode="pessimistic">
           {({ save }) => {
@@ -495,7 +495,7 @@ describe('useEditController', () => {
             return <div />;
           }}
         </EditController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await act(async () => saveCallback({ foo: 'bar' }));
     await new Promise(resolve => setTimeout(resolve, 10));
@@ -527,7 +527,7 @@ describe('useEditController', () => {
     };
 
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <Notification />
         <EditController
           {...defaultProps}
@@ -539,7 +539,7 @@ describe('useEditController', () => {
             return <div />;
           }}
         </EditController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await act(async () => saveCallback({ foo: 'bar' }));
     await new Promise(resolve => setTimeout(resolve, 10));
@@ -566,7 +566,7 @@ describe('useEditController', () => {
     };
 
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <Notification />
         <EditController
           {...defaultProps}
@@ -578,7 +578,7 @@ describe('useEditController', () => {
             return <div />;
           }}
         </EditController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await waitFor(() => expect(saveCallback).toBeDefined());
     await act(async () => saveCallback({ foo: 'bar' }));
@@ -619,7 +619,7 @@ describe('useEditController', () => {
     };
 
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <Notification />
         <EditController
           {...defaultProps}
@@ -631,7 +631,7 @@ describe('useEditController', () => {
             return <div />;
           }}
         </EditController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await act(async () =>
       saveCallback(
@@ -662,7 +662,7 @@ describe('useEditController', () => {
       transformed: true,
     }));
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <EditController
           {...defaultProps}
           mutationMode="pessimistic"
@@ -673,7 +673,7 @@ describe('useEditController', () => {
             return <div />;
           }}
         </EditController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await act(async () => saveCallback({ foo: 'bar' }));
     expect(transform).toHaveBeenCalledWith(
@@ -705,7 +705,7 @@ describe('useEditController', () => {
       transformed: true,
     }));
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <EditController
           {...defaultProps}
           mutationMode="pessimistic"
@@ -716,7 +716,7 @@ describe('useEditController', () => {
             return <div />;
           }}
         </EditController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await act(async () =>
       saveCallback(
@@ -767,7 +767,7 @@ describe('useEditController', () => {
       return null;
     };
     render(
-      <CoreAdminContext dataProvider={dataProvider}>
+      <BaseRootContext dataProvider={dataProvider}>
         <EditController {...defaultProps} mutationMode="pessimistic">
           {({
             save,
@@ -790,7 +790,7 @@ describe('useEditController', () => {
             );
           }}
         </EditController>
-      </CoreAdminContext>
+      </BaseRootContext>
     );
     await act(async () => saveCallback({ foo: 'bar' }));
 
