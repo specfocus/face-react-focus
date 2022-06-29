@@ -75,7 +75,7 @@ describe('References data status', () => {
           matchingReferences: { error: 'error' },
           field: { value: 1 },
         },
-        '*ra.input.references.single_missing*',
+        '*input.references.single_missing*',
         'there is an error if the references fetch fails and there is a linked reference without data'
       );
       test(
@@ -143,7 +143,7 @@ describe('References data status', () => {
           field: { value: 1 },
           referenceRecord: null,
         },
-        '*ra.input.references.single_missing*',
+        '*input.references.single_missing*',
         'there is a warning if there is a linked reference without data but the references fetch succeeds'
       );
       test(
@@ -193,7 +193,7 @@ describe('References data status', () => {
           field: { value: 1 },
           referenceRecord: null,
         },
-        '*ra.input.references.single_missing*',
+        '*input.references.single_missing*',
         [{ id: 2 }],
         'if there is no data for the linked reference, the choices are those returned by fetch'
       );
@@ -311,7 +311,7 @@ describe('References data status', () => {
           ...data,
           matchingReferences: { error: 'error' },
         },
-        '*ra.input.references.all_missing*',
+        '*input.references.all_missing*',
         'there is an error if the references fetch fails and there is no linked reference'
       );
       test(
@@ -320,7 +320,7 @@ describe('References data status', () => {
           matchingReferences: { error: 'error' },
           field: { value: [1] },
         },
-        '*ra.input.references.all_missing*',
+        '*input.references.all_missing*',
         'there is an error if the references fetch fails and there is all linked reference without data'
       );
       test(
@@ -388,7 +388,7 @@ describe('References data status', () => {
           field: { value: [1, 2] },
           referenceRecords: [{ id: 2 }],
         },
-        '*ra.input.references.many_missing*',
+        '*input.references.many_missing*',
         'there is a warning if there is at least one linked reference without data but the references fetch succeeds'
       );
       test(
@@ -438,7 +438,7 @@ describe('References data status', () => {
           field: { value: [1, 2] },
           referenceRecords: [],
         },
-        '*ra.input.references.many_missing*',
+        '*input.references.many_missing*',
         [{ id: 3 }],
         'if there is no data for the linked references, the choices are those returned by fetch'
       );
