@@ -6,15 +6,16 @@ import {
   defaultDataProvider
 } from '@specfocus/view-focus.data/providers';
 import { DataProvider, LegacyDataProvider } from '@specfocus/view-focus.data/providers/DataProvider';
-import { I18nProvider, TranslationContextProvider } from '@specfocus/view-focus.i18n/translations/TranslationContextProvider';
+import type { TranslationContextValue } from '@specfocus/view-focus.i18n/translations/TranslationContext';
+import { TranslationContextProvider } from '@specfocus/view-focus.i18n/translations/TranslationContextProvider';
 import { AdminRouter } from '@specfocus/view-focus.navigation/routes';
 import { NotificationContextProvider } from '@specfocus/view-focus.notification/providers';
 import { memoryStore, Store, StoreContextProvider } from '@specfocus/view-focus.states/states';
 import { History } from 'history';
 import { useMemo } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import type { DashboardComponent, ResourceChildren } from '../types';
 import { ResourceDefinitionContextProvider } from '../resources/ResourceDefinitionContext';
+import type { DashboardComponent, ResourceChildren } from '../types';
 
 export interface BaseRootContextProps {
   authProvider?: AuthProvider | LegacyAuthProvider;
@@ -28,7 +29,7 @@ export interface BaseRootContextProps {
    * @deprecated Wrap your Admin inside a Router to change the routing strategy
    */
   history?: History;
-  i18nProvider?: I18nProvider;
+  i18nProvider?: TranslationContextValue;
   theme?: object;
 }
 

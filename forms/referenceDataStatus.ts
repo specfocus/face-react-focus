@@ -1,7 +1,10 @@
-import { Entity } from '@specfocus/spec-focus/entities/Entity';
-import { ControllerRenderProps } from '@specfocus/view-focus.forms/forms/controller';
-import { Translate } from '@specfocus/view-focus.i18n/translations/TranslationContextProvider';
-import { MatchingReferencesError } from './types';
+import type { Entity } from '@specfocus/spec-focus/entities/Entity';
+import type { ControllerRenderProps } from '@specfocus/view-focus.forms/forms/controller';
+import type { Translate } from '@specfocus/view-focus.i18n/translations/TranslationContext';
+
+export interface MatchingReferencesError {
+  error: string;
+}
 
 interface GetStatusForInputParams<RecordType extends Entity = Entity> {
   field: Pick<ControllerRenderProps, 'value'>;
