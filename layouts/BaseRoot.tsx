@@ -92,7 +92,7 @@ export const BaseRoot = (props: BaseRootProps) => {
     dataProvider,
     disableTelemetry,
     history,
-    i18nProvider,
+    translator,
     queryClient,
     layout,
     loading,
@@ -107,7 +107,7 @@ export const BaseRoot = (props: BaseRootProps) => {
       authProvider={authProvider}
       basename={basename}
       dataProvider={dataProvider}
-      i18nProvider={i18nProvider}
+      translator={translator}
       queryClient={queryClient}
       history={history}
     >

@@ -6,7 +6,7 @@ import {
   defaultDataProvider
 } from '@specfocus/view-focus.data/providers';
 import { DataProvider, LegacyDataProvider } from '@specfocus/view-focus.data/providers/DataProvider';
-import type { TranslationContextValue } from '@specfocus/view-focus.i18n/translations/TranslationContext';
+import type { Translator } from '@specfocus/view-focus.i18n/translations/TranslationContext';
 import { TranslationContextProvider } from '@specfocus/view-focus.i18n/translations/TranslationContextProvider';
 import { AdminRouter } from '@specfocus/view-focus.navigation/routes';
 import { NotificationContextProvider } from '@specfocus/view-focus.notification/providers';
@@ -29,7 +29,7 @@ export interface BaseRootContextProps {
    * @deprecated Wrap your Admin inside a Router to change the routing strategy
    */
   history?: History;
-  i18nProvider?: TranslationContextValue;
+  translator?: Translator;
   theme?: object;
 }
 
@@ -38,7 +38,7 @@ export const BaseRootContext = (props: BaseRootContextProps) => {
     authProvider,
     basename,
     dataProvider,
-    i18nProvider,
+    translator,
     store,
     children,
     history,
@@ -76,7 +76,7 @@ React-admin requires a valid dataProvider function to work.`);
         <StoreContextProvider value={store}>
           <QueryClientProvider client={finalQueryClient}>
             <AdminRouter history={history} basename={basename}>
-              <TranslationContextProvider value={i18nProvider}>
+              <TranslationContextProvider value={translator}>
                 <NotificationContextProvider>
                   <ResourceDefinitionContextProvider>
                     {children}
